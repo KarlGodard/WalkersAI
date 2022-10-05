@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .box {
+        border: 2px solid black;
+        padding: 25px;
+    }
+
+    .center {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+<title>insta485</title>
+
+<div>
+    <a href="/">
+        <img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+        <a href="/accounts/login/">
+            login
+        </a>
+    </div>
+</div>
+<div>
+	<strong>{{logname}}</strong>
+</div>
+<hr>
+<form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
+    <p><input type="text" name="username" required /></p>
+    <p><input type="password" name="password" required /></p>
+    <input type="submit" value="login" />
+    <input type="hidden" name="operation" value="login" />
+</form>
+<p>Don't have an account?<a href="/accounts/create/"> Sign up</a></p>
+
+</html>

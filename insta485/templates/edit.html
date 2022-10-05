@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .box {
+        border: 2px solid black;
+        padding: 15px;
+    }
+
+    .center {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+
+<title>insta485</title>
+
+
+<div>
+    <a href="/">
+        <img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+        <a href="/explore/">explore </a>
+        |
+        <a href="/users/{{logname}}/">
+            {{logname}}
+        </a>
+    </div>
+</div>
+
+<hr>
+<div style="float:left">
+    <a href="/users/{{logname}}/">
+        <img src="{{url_for('upload_file', filename = filename)}}" alt="profile pic" style="width: 40px;height: 50px;">
+    </a>
+    <a href="/users/{{logname}}/">{{logname}}</a>
+</div>
+<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+<form action="/accounts/?target=/accounts/edit/" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" />
+    <br>
+    <input type="text" name="fullname" value="{{fullname}}" required />
+    <br>
+    <input type="text" name="email" value="{{email}}" required />
+    <br>
+    <input type="submit" name="update" value="submit" />
+    <input type="hidden" name="operation" value="edit_account" />
+</form>
+<a href="/accounts/password/">Change Password</a>
+<br>
+<a href="/accounts/delete/">Delete Account</a>
+
+</html>

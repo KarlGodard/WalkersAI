@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>insta485</title>
+<div>
+    <a href="/">
+        <img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+        <a href="/accounts/login">Login </a>
+    </div>
+</div>
+<hr>
+<!-- DO NOT CHANGE THIS (aside from styling) -->
+<form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
+    <strong>Photo </strong>
+    <input type="file" name="file" required />
+    <br>
+    <br>
+    <strong>Name </strong>
+    <input type="text" name="fullname" required />
+    <br>
+    <br>
+    <strong>Username </strong>
+    <input type="text" name="username" required />
+    <br>
+    <br>
+    <strong>Email </strong>
+    <input type="text" name="email" required />
+    <br>
+    <br>
+    <strong>Password </strong>
+    <input type="password" name="password" required />
+    <br>
+    <br>
+    <input type="submit" name="signup" value="sign up" />
+
+    <p>Have an account?
+        <a href="/accounts/login">Login </a>
+    </p>
+    <input type="hidden" name="operation" value="create" />
+</form>
+
+</html>

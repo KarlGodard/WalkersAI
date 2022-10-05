@@ -1,0 +1,23 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:8000...
+* TCP_NODELAY set
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+> GET / HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/7.68.0
+> Accept: */*
+> Cookie: login=eyJ1c2VybmFtZSI6ImF3ZGVvcmlvIn0.YhKYjg.NZZlEhp92Ozv82iDaq7IutTXjbY
+> 
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 735
+< Vary: Cookie
+< Server: Werkzeug/2.0.2 Python/3.8.10
+< Date: Sun, 20 Feb 2022 19:39:31 GMT
+< 
+{ [735 bytes data]
+100   735  100   735    0     0  20416      0 --:--:-- --:--:-- --:--:-- 20416
+* Closing connection 0

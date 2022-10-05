@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  .box {
+    border: 2px solid black;
+    padding: 25px;
+  }
+
+  .center {
+    display: block;
+    margin: auto;
+  }
+</style>
+
+<title>insta485</title>
+
+
+
+<body>
+  <!-- Plain old HTML and jinja2 nav bar goes here -->
+  <div>
+    <a href="/">
+      <img src="/static/images/Insta-logo.jpg" alt="Insta485"
+        style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+      <a href="/explore/">explore </a>
+      |
+      <a href="/users/{{logname}}/">
+        {{logname}}
+      </a>
+    </div>
+  </div>
+  <hr>
+  <div id="reactEntry">
+    Loading ...
+  </div>
+  <!-- Load JavaScript -->
+  <script type="text/javascript"
+    src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+</body>
+
+
+<br>
+
+</html>

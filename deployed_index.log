@@ -1,0 +1,23 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 54.226.5.41:80...
+* TCP_NODELAY set
+* Connected to ec2-54-226-5-41.compute-1.amazonaws.com (54.226.5.41) port 80 (#0)
+> GET / HTTP/1.1
+> Host: ec2-54-226-5-41.compute-1.amazonaws.com
+> User-Agent: curl/7.68.0
+> Accept: */*
+> Cookie: login=eyJ1c2VybmFtZSI6ImF3ZGVvcmlvIn0.YhKavQ.5KMKwp1ZW2wdu5Ag6iRVoUL4BXc
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: nginx/1.18.0 (Ubuntu)
+< Date: Sun, 20 Feb 2022 19:49:23 GMT
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 735
+< Connection: keep-alive
+< Vary: Cookie
+< 
+{ [735 bytes data]
+100   735  100   735    0     0   6869      0 --:--:-- --:--:-- --:--:--  6869
+* Connection #0 to host ec2-54-226-5-41.compute-1.amazonaws.com left intact

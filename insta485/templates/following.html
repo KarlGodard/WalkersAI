@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .box {
+        border: 2px solid black;
+        padding: 20px;
+        display: flex;
+    }
+
+    .center {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+</style>
+
+
+<title>insta485</title>
+
+
+
+<div>
+    <a href="/">
+        <img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+        <a href="/explore/">explore </a>
+        |
+        <a href="/users/{{logname}}/">
+            {{logname}}
+        </a>
+    </div>
+</div>
+
+<hr>
+
+<b>Following</b>
+<br>
+
+{% for follower in following %}
+<div class=box>
+    <div class="center">
+        <img src="{{url_for('upload_file', filename = follower['filename'])}}" alt="profile pic"
+            style="width: 40px;height: 50px;float:left">
+        <a href="/users/{{follower['username']}}/">
+            <b>{{follower['username']}}</b>
+        </a>
+    </div>
+    {% if logname != follower['username'] %}
+    <div style="margin-left:auto">
+        {% if follower['loggedInRelationship'] == None %}
+        not following
+        <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+        <form action="/following/?target=/users/{{user_url_slug}}/following/" method="post"
+            enctype="multipart/form-data">
+            <input type="submit" name="follow" value="follow" />
+            <input type="hidden" name="username" value="{{follower['username']}}" />
+            <input type="hidden" name="operation" value="follow" />
+        </form>
+        {% else %}
+        following
+        <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+        <form action="/following/?target=/users/{{user_url_slug}}/following/" method="post"
+            enctype="multipart/form-data">
+            <input type="submit" name="unfollow" value="unfollow" />
+            <input type="hidden" name="username" value="{{follower['username']}}" />
+            <input type="hidden" name="operation" value="unfollow" />
+        </form>
+        {% endif%}
+    </div>
+    {% endif %}
+</div>
+<br>
+<br>
+{% endfor %}
+
+
+
+</html>

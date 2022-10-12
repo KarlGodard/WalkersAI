@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  .box {
+    text-align: center;
+    margin: auto;
+    position: relative;
+    position: relative;
+    top: 230px;
+  }
+
+  .title {
+    text-align: center;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 180px;
+    font-size: 100px;
+    font-family: 'Brush Script MT', cursive;
+    color: #DC143C;
+    font-stretch: 200%;
+  }
+  .brush{
+    text-align: center;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 205px;
+    width: 100px;
+    height: 50px;
+  }
+   body {
+    background-color: #FBEEAC;
+  }
+</style>
+
+<title>Sketchy</title>
+
+
+
+<body>
+  <!-- Plain old HTML and jinja2 nav bar goes here
+  <div>
+    <a href="/">
+      <img src="/static/images/Insta-logo.jpg" alt="Insta485"
+        style="width: 50px;height: 50px;">
+    </a>
+    <div style="float:right;">
+      <a href="/explore/">explore </a>
+      |
+      <a href="/users/{{logname}}/">
+        {{logname}}
+      </a>
+    </div>
+  </div>
+  <hr>
+  -->
+  <div class="title">Sketchy</div>
+  <div class="brush"><img src="/static/images/paintbrush.png" alt="Insta485" style="width: 50px;height: 50px;"></div>
+  <div class="box">
+  <form action="?target=/" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="operation" value="create" />
+    <input type="hidden" name="postid" value="4" />
+    <input type="text" name="text" required />
+    <input type="submit" name="submit" value="submit" />
+  </form>
+  </div>
+  <!--
+  <div id="reactEntry">
+    Loading ...
+  </div>
+  Load JavaScript
+  <script type="text/javascript"
+    src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+  -->
+</body>
+
+
+<br>
+
+</html>

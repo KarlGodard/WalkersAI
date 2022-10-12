@@ -32,7 +32,7 @@ import pytest
 import requests
 import selenium
 import selenium.webdriver
-import skechy
+import sketchy
 
 # Set up logging
 LOGGER = logging.getLogger("autograder")
@@ -119,13 +119,13 @@ def setup_teardown_flask_app():
 
     # Configure Flask app.  Testing mode so that exceptions are propagated
     # rather than handled by the the app's error handlers.
-    skechy.app.config["TESTING"] = True
+    sketchy.app.config["TESTING"] = True
 
     # Transfer control to test.  The code before the "yield" statement is setup
     # code, which is executed before the test.  Code after the "yield" is
     # teardown code, which is executed at the end of the test.  Teardown code
     # is executed whether the test passed or failed.
-    yield skechy.app
+    yield sketchy.app
 
     # Teardown code starts here
     LOGGER.info("Teardown test fixture 'app'")
@@ -306,13 +306,13 @@ def client_setup_teardown():
     subprocess.run(["bin/insta485db", "reset"], check=True)
 
     # Configure Flask test server
-    skechy.app.config["TESTING"] = True
+    sketchy.app.config["TESTING"] = True
 
     # Transfer control to test.  The code before the "yield" statement is setup
     # code, which is executed before the test.  Code after the "yield" is
     # teardown code, which is executed at the end of the test.  Teardown code
     # is executed whether the test passed or failed.
-    with skechy.app.test_client() as client:
+    with sketchy.app.test_client() as client:
         yield client
 
     # Teardown code starts here

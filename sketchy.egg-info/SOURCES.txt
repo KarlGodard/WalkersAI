@@ -1,0 +1,9 @@
+setup.py
+sketchy/__init__.py
+sketchy/config.py
+sketchy/model.py
+sketchy.egg-info/PKG-INFO
+sketchy.egg-info/SOURCES.txt
+sketchy.egg-info/dependency_links.txt
+sketchy.egg-info/requires.txt
+sketchy.egg-info/top_level.txt

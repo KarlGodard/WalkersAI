@@ -1,0 +1,22 @@
+{
+    "name": [
+       "What is the name of this painting",
+       "What is this painting called?",
+       "Name?",
+       "What is the title of this painting"
+    ],
+    "painter": [
+        "Who created this painting",
+        "Who drew this painting",
+        "Who is the creator of this painter",
+        "Who is this painting by",
+        "Painter?"
+    ],
+
+    "medium": [
+        "what is the medium of this painting",
+        "What type of painting is this?",
+        "How was this painting made?",
+        "Type of paint?"
+    ]
+}

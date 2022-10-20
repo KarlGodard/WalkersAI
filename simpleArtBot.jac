@@ -2,13 +2,14 @@ node dialogue_state {
     can bi_enc.infer;
 
     can classify_intent {
-        intent_labels = -[intent_transition]->.edge.intent;
+        intent_labels = ["name", "painter", "medium"];
         visitor.wlk_ctx["intent"] = bi_enc.infer(
             contexts = [visitor.question],
             candidates = intent_labels,
             context_type = "text",
             candidate_type = "text"
         )[0]["predicted"]["label"];
+        std.out(visitor.wlk_ctx["intent"]);
     }
     
 
@@ -36,12 +37,13 @@ node dialogue_root:dialogue_state {
     }
     can process {
         data = file.load_json("painting1.json");
-        queried_data = data[visitor.walk_ctx["intent"]];
+        std.out(data);
+        queried_data = data[visitor.wlk_ctx["intent"]];
         visitor.wlk_ctx["respond"] = true;
-        visitor.walk_ctx["response"] = queried_data;
+        visitor.wlk_ctx["response"] = queried_data;
     }
     can nlg {
-        visitor.response = visitor.walk_ctx["response"];
+        visitor.response = visitor.wlk_ctx["response"];
     }
 }
 
@@ -63,9 +65,11 @@ walker init {
 
 walker talk {
     has question;
+    can bi_enc.infer;
     has wlk_ctx = {};
     has response;
     root {
+
         take --> node::dialogue_root;
     }
     dialogue_state {

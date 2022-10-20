@@ -3,20 +3,31 @@
        "What is the name of this painting",
        "What is this painting called?",
        "Name?",
-       "What is the title of this painting"
+       "Name of painting?",
+       "Painting name?",
+       "What is the title of this painting?",
+       "What is this piece of art called?",
+       "What should I call this painting?"
     ],
     "painter": [
         "Who created this painting",
         "Who drew this painting",
-        "Who is the creator of this painter",
+        "Name of painter?",
+        "Created by whom?",
+        "Who is the creator of this painter?",
         "Who is this painting by",
-        "Painter?"
+        "Painter?", 
+        "What was the name of the person who painting this piece of art"
     ],
 
     "medium": [
         "what is the medium of this painting",
         "What type of painting is this?",
         "How was this painting made?",
-        "Type of paint?"
+        "Type of paint?",
+        "How was this painting created",
+        "Painting type?",
+        "Oil or acrylic?",
+        "Acrylic paint?"
     ]
 }

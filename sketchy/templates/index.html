@@ -5,7 +5,6 @@
     text-align: center;
     margin: auto;
     position: relative;
-    position: relative;
     top: 230px;
   }
 
@@ -16,7 +15,7 @@
     position: relative;
     top: 180px;
     font-size: 100px;
-    font-family: 'Brush Script MT', cursive;
+    font-family: 'Brush Script MT';
     color: #DC143C;
     font-stretch: 200%;
   }
@@ -25,6 +24,7 @@
     display: block;
     margin: auto;
     position: relative;
+    padding-bottom: 50px;
     top: 205px;
     width: 100px;
     height: 50px;
@@ -32,9 +32,60 @@
    body {
     background-color: #FBEEAC;
   }
+  
+
+  #bodybox {
+    margin: auto;
+    position: relative;
+    max-width: 550px;
+    font: 15px arial, sans-serif;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 15px;
+  }
+
+  #chatborder {
+    border-style: solid;
+    background-color: #f6f9f6;
+    border-width: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    padding-left: 15px;
+    border-radius: 15px;
+  }
+
+  .chatlog {
+    font: 15px arial, sans-serif;
+  }
+
+  #chatbox {
+    font: 17px arial, sans-serif;
+    height: 22px;
+    width: 100%;
+  }
+
+  h1 {
+    margin: auto;
+  }
+
+  pre {
+    background-color: #f0f0f0;
+    margin-left: 20px;
+  }
 </style>
 
-<title>Sketchy</title>
+<title>Walkers AI</title>
 
 
 
@@ -55,15 +106,22 @@
   </div>
   <hr>
   -->
-  <div class="title">Sketchy</div>
-  <div class="brush"><img src="/static/images/paintbrush.png" alt="Insta485" style="width: 50px;height: 50px;"></div>
-  <div class="box">
-  <form action="?target=/" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="operation" value="create" />
-    <input type="hidden" name="postid" value="4" />
-    <input type="text" name="text" required />
-    <input type="submit" name="submit" value="submit" />
-  </form>
+  <div>
+    <div class="title">ArtBot AI</div>
+    <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
+    <br><br>
+    <div id='bodybox'>
+      <div id='chatborder'>
+        <p id="chatlog7" class="chatlog">&nbsp;</p>
+        <p id="chatlog6" class="chatlog">&nbsp;</p>
+        <p id="chatlog5" class="chatlog">&nbsp;</p>
+        <p id="chatlog4" class="chatlog">&nbsp;</p>
+        <p id="chatlog3" class="chatlog">&nbsp;</p>
+        <p id="chatlog2" class="chatlog">&nbsp;</p>
+        <p id="chatlog1" class="chatlog">&nbsp;</p>
+        <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
+        <script src="/Users/karlgodard/WalkersAI/WalkersAI/sketchy/js/index.jsx"></script>
+      </div>
   </div>
   <!--
   <div id="reactEntry">

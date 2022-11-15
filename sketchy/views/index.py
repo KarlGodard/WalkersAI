@@ -105,6 +105,99 @@ def show_index():
     
     return flask.render_template("index.html", **context)
 
+@sketchy.app.route('/webhook', methods=['GET', 'POST'])
+def webhook():
+    connection = sketchy.model.get_db()
+    req = flask.request.get_json(silent=True, force=True)
+    fulfillmentText = ''
+    query_result = req.get('queryResult')
+    if query_result.get('action') == 'get.painter':
+        ### Perform set of executable code
+        ### if required
+        ###
+        parameters = query_result.get('parameters')
+        painting_name = parameters['painting']
+        cur = connection.execute(
+        "SELECT ai.displayName "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE aw.title= ?",
+        (painting_name,)
+        )
+        painter_name = cur.fetchone()
+        
+        fulfillmentText = painter_name['displayName'] + " painted the " + painting_name
+    if query_result.get('action') == 'get.nationality':
+        painter_name = query_result.get('parameters')['artist']
+        cur = connection.execute(
+        "SELECT ai.nationality "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE ai.displayName = ?",
+        (painter_name,)
+        )
+        nationality = cur.fetchone()
+        fulfillmentText = painter_name + " is " + nationality['nationality']
+    if query_result.get('action') == 'get.medium':
+        painting_name = query_result.get('parameters')['painting']
+        cur = connection.execute(
+        "SELECT aw.medium "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE aw.title = ?",
+        (painting_name,)
+        )
+        item = cur.fetchone()
+        fulfillmentText = "The " + painting_name + " was painted with " + item['medium']
+    if query_result.get('action') == 'get.dimensions':
+        painting_name = query_result.get('parameters')['painting']
+        cur = connection.execute(
+        "SELECT aw.dimensions "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE aw.title = ?",
+        (painting_name,)
+        )
+        item = cur.fetchone()
+        fulfillmentText = "The " + painting_name + " has dimensions of " + item['dimensions']
+    if query_result.get('action') == 'get.yearPainted':
+        painting_name = query_result.get('parameters')['painting']
+        cur = connection.execute(
+        "SELECT aw.date "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE aw.title = ?",
+        (painting_name,)
+        )
+        item = cur.fetchone()
+        fulfillmentText = "The " + painting_name + " was painted in " + item['date']
+    if query_result.get('action') == 'get.beginDate':
+        artist_name = query_result.get('parameters')['artist']
+        cur = connection.execute(
+        "SELECT ai.beginDate "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE ai.displayName = ?",
+        (artist_name,)
+        )
+        item = cur.fetchone()
+        fulfillmentText = artist_name + " began his career in " + str(item['beginDate'])
+    if query_result.get('action') == 'get.endDate':
+        artist_name = query_result.get('parameters')['artist']
+        cur = connection.execute(
+        "SELECT ai.endDate "
+        "FROM artworks aw "
+        "JOIN artists ai ON ai.constituentID = aw.constituentID "
+        "WHERE ai.displayName = ?",
+        (artist_name,)
+        )
+        item = cur.fetchone()
+        fulfillmentText = artist_name + " stopped his career in " + str(item['endDate'])
+    return {
+            "fulfillmentText": fulfillmentText,
+            "source": "webhookdata"
+        }
+
 
 @sketchy.app.route("/uploads/<filename>")
 def upload_file(filename):

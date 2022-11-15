@@ -1,5 +1,18 @@
 PRAGMA foreign_keys = ON;
 
+
+CREATE TABLE artists(
+  constituentID INTEGER NOT NULL PRIMARY KEY,
+  displayName VARCHAR(30),
+  artistBio VARCHAR(40),
+  nationality VARCHAR(30),
+  gender VARCHAR(10),
+  beginDate INTEGER,
+  endDate INTEGER,
+  wikiQID VARCHAR(10),
+  ULAN INTEGER
+);
+
 CREATE TABLE artworks(
   title VARCHAR(60) NOT NULL,
   constituentID INTEGER NOT NULL,
@@ -50,17 +63,6 @@ CREATE TABLE artworks(
 -- Seat Height (cm),
 -- Duration (sec.)
 
-CREATE TABLE artists(
-  constituentID INTEGER NOT NULL PRIMARY KEY,
-  displayName VARCHAR(30),
-  artistBio VARCHAR(40),
-  nationality VARCHAR(30),
-  gender VARCHAR(10),
-  beginDate INTEGER,
-  endDate INTEGER,
-  wikiQID VARCHAR(10),
-  ULAN INTEGER
-);
 
 -- ConstituentID,
 -- DisplayName,

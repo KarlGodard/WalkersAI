@@ -14,7 +14,7 @@ jac
 nearbySearchTest.py
 testGraph.jac
 trivia.py
-var/sketchy.sqlite3
+
 mydatabase
 mvpArtBot.jac
 dialogue_intent_model/

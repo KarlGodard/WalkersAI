@@ -1,4 +1,6 @@
 {
+  "L'Estaque": 
+  {
     "Title": "L'Estaque",
     "Artist": [
       "Paul Cézanne"
@@ -36,7 +38,8 @@
     "Height (cm)": 80.3,
     "Width (cm)": 99.4
   },
-  {
+  
+  "Water Lilies":{
   "Title": "Water Lilies",
   "Artist": [
     "Claude Monet"
@@ -74,7 +77,7 @@
   "Height (cm)": 199.5,
   "Width (cm)": 599.0
 },
-{
+"Stevedores Resting": {
     "Title": "Stevedores Resting",
     "Artist": [
       "Alfredo Guido"
@@ -111,8 +114,8 @@
     "ThumbnailURL": "http://www.moma.org/media/W1siZiIsIjQzOTcwNyJdLFsicCIsImNvbnZlcnQiLCItcmVzaXplIDMwMHgzMDBcdTAwM2UiXV0.jpg?sha=a5b45edfd7099483",
     "Height (cm)": 53.7,
     "Width (cm)": 46.0
-  },
-  {
+},
+  "Abra Variation I": {
     "Title": "Abra Variation I",
     "Artist": [
       "Frank Stella"
@@ -150,7 +153,7 @@
     "Height (cm)": 304.8,
     "Width (cm)": 304.5
   },
-  {
+  "Accident in the Air": {
     "Title": "Accident in the Air",
     "Artist": [
       "Anton Refregier"
@@ -188,3 +191,4 @@
     "Height (cm)": 48.3,
     "Width (cm)": 58.4
   }
+}

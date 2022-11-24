@@ -1,5 +1,6 @@
 env/
 
+.DS_Store
 
 sketchy/__pycache__/
 sketchy/api/__pycache__/

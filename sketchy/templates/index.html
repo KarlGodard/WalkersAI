@@ -111,55 +111,31 @@
         botMessage = "", //var keeps track of what the chatbot is going to say
         botName = 'Skechy', //name of the chatbot
         talking = true; //when false the speach function doesn't work
-      //
-      //
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //edit this function to change what the chatbot says
-      function chatbotResponse() {
-        talking = true;
-        botMessage = "I'm confused"; //the default message
-        if (lastUserMessage === "Who painted the Mona Lisa?"){
-          botMessage = "Leonardo da Vinci";
+      
+      //runs the keypress() function when a key is pressed
+      document.onkeypress = keyPress;
+
+      //clears the placeholder text ion the chatbox
+      //this function is set to run when the users brings focus to the chatbox, by clicking on it
+      function placeHolder() {
+        document.getElementById("chatbox").placeholder = "";
+      }
+
+
+      //if the key pressed is 'enter' runs the function newEntry()
+      function keyPress(e) {
+        var x = e || window.event;
+        var key = (x.keyCode || x.which);
+        if (key == 13 || key == 3) {
+          //runs this function when enter is pressed
+          newEntry();
         }
-        if(lastUserMessage === "What is the medium?"){
-          botMessage = "Oil paints on a poplar wood panel";
-        }
-        if (lastUserMessage === 'hi' || lastUserMessage == 'hello' || lastUserMessage == 'Hi') {
-          const hi = ['hi', 'howdy', 'hello']
-          botMessage = hi[Math.floor(Math.random() * (hi.length))];;
-        }
-        if (lastUserMessage === 'What is your name?') {
-          botMessage = 'My name is ' + botName + ". I'm here to answer any questions you have on art.";
-        }
-        if (lastUserMessage === 'How are you doing?' || lastUserMessage == "How are you?"){
-          botMessage = "I'm doing great!";
-        }
-        if(lastUserMessage === 'What is the name of the painting with ancient greek philosophers?'){
-          botMessage = "You are probably talking about the School of Athens painting."
-        }
-        if(lastUserMessage === 'Who painted it?'){
-          botMessage = "The Italian Renaissance artist Raphael painted it."
-        }
-        if (lastUserMessage === 'bye' || lastUserMessage === 'Bye') {
-          botMessage = 'bye';
+        if (key == 38) {
+          console.log('hi')
+          //document.getElementById("chatbox").value = lastUserMessage;
         }
       }
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //****************************************************************
-      //
-      //
-      //
+
       //this runs each time enter is pressed.
       //It controls the overall input and output
       function newEntry() {
@@ -174,7 +150,7 @@
           messages.push(lastUserMessage);
           //Speech(lastUserMessage);  //says what the user typed outloud
           //sets the variable botMessage in response to lastUserMessage
-          chatbotResponse();
+          chatbotResponse(lastUserMessage);
           //Speech(botMessage);
           //add the chatbot's name and message to the array messages
           messages.push("<b>" + botName + ":</b> " + botMessage);
@@ -187,6 +163,38 @@
           }
         }
       }
+
+   
+      const chatbotResponse = async (lastUserMessage) => {
+          input = lastUserMessage;
+          let data = {
+          ctx: { "question": input },
+          name: "talk"
+          }
+        try {
+          // NOTE: Change this URL to your Jaseci server URL.
+          // NOTE: Change the token to your authenticated token
+          let result = await fetch('http://localhost:8000/js/walker_run', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'token bf6c3138799af356cbec27da90de0f7476fd9e25059c83dc0dfdd339ff68dd5b'
+            },
+            body: JSON.stringify(data),
+          })
+
+          result = await result.json();
+
+          const answer = result.report[0];
+
+          botMessage = answer;
+
+        } catch (error) {
+          console.log(error)
+        }
+      } 
+    
 
       //text to Speech
       //https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
@@ -204,41 +212,20 @@
         }
       }
 
-      //runs the keypress() function when a key is pressed
-      document.onkeypress = keyPress;
-      //if the key pressed is 'enter' runs the function newEntry()
-      function keyPress(e) {
-        var x = e || window.event;
-        var key = (x.keyCode || x.which);
-        if (key == 13 || key == 3) {
-          //runs this function when enter is pressed
-          newEntry();
-        }
-        if (key == 38) {
-          console.log('hi')
-          //document.getElementById("chatbox").value = lastUserMessage;
-        }
-      }
+     
+      
 
-      //clears the placeholder text ion the chatbox
-      //this function is set to run when the users brings focus to the chatbox, by clicking on it
-      function placeHolder() {
-        document.getElementById("chatbox").placeholder = "";
-      }
-      function hello() {
-        console.log("hello");
-        alert("hello");
-      }
+      
   </script>
   <div>
     <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
     <div class="title">Sketchy</div>
     
     <br><br>
-    <iframe allow="microphone;" width="350" height="430"
+    <!-- <iframe allow="microphone;" width="350" height="430"
       src="https://console.dialogflow.com/api-client/demo/embedded/0761f432-34d6-45a3-ae1f-3143e8787493">
-    </iframe>
-    <!--
+    </iframe> -->
+    
     <div id='bodybox'>
       <div id='chatborder'>
         <p id="chatlog7" class="chatlog">&nbsp;</p>
@@ -250,7 +237,7 @@
         <p id="chatlog1" class="chatlog">&nbsp;</p>
         <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
       </div>
-  </div>-->
+   </div> 
 
   <!--
   <div id="reactEntry">

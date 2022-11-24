@@ -6,7 +6,7 @@
 var messages = [], //array that hold the record of each string in chat
   lastUserMessage = "", //keeps track of the most recent input string from the user
   botMessage = "", //var keeps track of what the chatbot is going to say
-  botName = 'Chatbot', //name of the chatbot
+  botName = 'Skechy', //name of the chatbot
   talking = true; //when false the speach function doesn't work
 //
 //
@@ -44,7 +44,8 @@ function chatbotResponse() {
 //this runs each time enter is pressed.
 //It controls the overall input and output
 function newEntry() {
-  //if the message from the user isn't empty then run 
+  //if the message from the user isn't empty then run
+  console.log("Hello");
   if (document.getElementById("chatbox").value != "") {
     //pulls the value from the chatbox ands sets it to lastUserMessage
     lastUserMessage = document.getElementById("chatbox").value;
@@ -58,7 +59,7 @@ function newEntry() {
     //add the chatbot's name and message to the array messages
     messages.push("<b>" + botName + ":</b> " + botMessage);
     // says the message using the text to speech function written below
-    Speech(botMessage);
+    // Speech(botMessage);
     //outputs the last few array elements of messages to html
     for (var i = 1; i < 8; i++) {
       if (messages[messages.length - i])
@@ -103,4 +104,8 @@ function keyPress(e) {
 //this function is set to run when the users brings focus to the chatbox, by clicking on it
 function placeHolder() {
   document.getElementById("chatbox").placeholder = "";
+}
+function hello(){
+  console.log("hello");
+  alert("hello");
 }

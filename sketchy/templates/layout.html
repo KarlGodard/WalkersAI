@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  .box {
+    text-align: center;
+    margin: auto;
+    position: relative;
+    top: 230px; /* 230 */
+    overflow: auto;
+  }
+
+  .title {
+    text-align: center;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -100px;
+    font-size: 100px;
+    font-family: 'Brush Script MT';
+    color: #DC143C;
+    font-stretch: 200%;
+  }
+  .brush{
+    text-align: center;
+    display: block;
+    margin: auto;
+    position: relative;
+    padding-bottom: 10px;
+    top: 130px; /* 205 */
+  }
+   body {
+    background-color: #FBEEAC;
+  }
+
+
+  #bodybox {
+    margin: auto;
+    position: relative;
+    top: -30px;
+    max-width: 550px;
+    font: 15px arial, sans-serif;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 15px;
+    overflow: auto;
+  }
+
+  #chatborder {
+    border-style: solid;
+    background-color: #f6f9f6;
+    border-width: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+    padding-left: 15px;
+    border-radius: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* Where the responses from Sketchy appear + old user messages */
+  .chatlog {
+    font: 15px arial, sans-serif;
+  }
+
+  /* Area where user types, contained inside .chatlog */
+  #chatbox {
+    font: 17px arial, sans-serif;
+    height: 22px;
+    width: 100%;
+  }
+
+  h1 {
+    margin: auto;
+  }
+
+  pre {
+    background-color: #f0f0f0;
+    margin-left: 20px;
+  }
+
+</style>
+
+<title>Sketchy Chatbot</title>
+
+<!-- Icon Bar for navigation to different tabs -->
+<!-- Currently has icons: Home, Chat, History, Trivia -->
+<!-- To be added: Log in, Random Painting? -->
+<head>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- Formatting for icon bar */ -->
+<style>
+body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;/* we can change font style by using the font-familiy css tag */
+  }
+ul{
+	position:relative; /* Ses the position of the icon bar*/
+	top: 20px; /* Moves icon bar down a bit */
+	margin: auto; /* Centers icon bar */
+  max-width: 700px;
+  height: 60px;
+	padding: 10px 0px; /* Adding some padding */
+	background: #fff; /* Add a white background color to the top navigation */
+	display: flex; /* Sets icon bar horizontally using the  display tag*/
+	border-radius: 10px; /* Rounds corners */
+	box-shadow: 0 10px 30px rgba(0,0,0,.3)
+}
+ /* Style the links inside the navigation bar */
+ /* Icon bar is divided into one "box" for each icon */
+ul li{
+  position: relative;
+  list-style: none;
+  text-align: center;
+  display: block;
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+ul li:last-child{
+  border-right: none;
+}
+ul li a{
+	text-decoration: none;
+  /* padding: 10% 10% 10% 10%; */
+	padding: 10px 58px 0px; /* Sets padding between each "box" */
+	display: block;
+}
+/* Style the icon inside the navigation bar */
+ul li a .icon{
+	width: 60px; /* changing the width of the icon */
+	height: 60px; /* changing the height of the icon */
+	text-align: center;
+	
+	overflow: visible;
+	margin: 0 auto -35px;
+	
+}
+/* set the size, height, width of the icon*/
+ul li a .icon .fa{
+	width: 100%;
+	height: 100%;
+	line-height: 20px;
+	font-size: 34px;
+	transition: 0.5s; /* adding the transition to make it more attractive */
+	color: #000;
+}
+
+
+/* style the color and transform of the icon on hover */
+ul li a:hover .icon .fa{
+	transform: translateY(-10%); /* translate y to add the hover effect */
+}
+ul li a .name{
+	position: relative;
+	height: 40px; 
+	width: 100%;
+	display: block;
+	overflow: hidden;/*make ul li a .name overflow is hidden*/
+}
+/*style the font size and set transition of the navigation menu*/
+ul li a .name span{
+	display: block;
+	position: relative;
+  top: 0px;
+  z-index: 100;
+	color: #000;
+	font-size: 15px; /* changing font size */
+	line-height: 30px;
+	transition: 0.5s; /* adding the transition to make it more attractive */
+	overflow: visible;
+}
+
+</style>
+
+<!-- On load, sends welcome message to user --> 
+<body>
+
+  <!-- Navigation bar with icons -->
+  <ul>
+    <li>
+      <a href="http://localhost:8000/home">
+        <div class="icon">
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </div>
+        <div class="name"><span data-text="Home">Home</span></div>
+      </a>
+    </li>
+    <li>
+      <a href="http://localhost:8000/">
+        <div class="icon">
+          <i class="fa fa-comments"></i>
+        </div>
+        <div class="name"><span data-text="Chat">Chat</span></div>
+      </a>
+    </li>
+    <li>
+      <a href="http://localhost:8000/history">
+        <div class="icon">
+          <i class="fa fa-history" aria-hidden="true"></i>
+        </div>
+        <div class="name"><span data-text="History">History</span></div>
+      </a>
+    </li>
+    <li>
+      <a href="http://localhost:8000/trivia">
+        <div class="icon">
+          <i class="fa fa-question-circle"></i>
+        </div>
+        <div class="name"><span data-text="Trivia">Trivia</span></div>
+      </a>
+    </li>
+  </ul>
+
+    <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
+    <div class="title">Sketchy</div>
+
+    <br><br>
+
+    <div id="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+</body>
+
+
+<br>
+
+</html>

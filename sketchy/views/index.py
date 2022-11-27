@@ -206,3 +206,28 @@ def upload_file(filename):
 
     upload_folder = sketchy.app.config["UPLOAD_FOLDER"]
     return flask.send_from_directory(upload_folder, filename)
+
+# Adds Home page to website
+@sketchy.app.route('/index/')
+def index():
+    return flask.render_template("index.html")
+
+# Adds Home page to website
+@sketchy.app.route('/home/')
+def home():
+    return flask.render_template("home.html")
+
+# Adds History page to website
+@sketchy.app.route('/layout/')
+def layout():
+    return flask.render_template("layout.html")
+    
+# Adds History page to website
+@sketchy.app.route('/history/')
+def history():
+    return flask.render_template("history.html")
+
+    # Adds History page to website
+@sketchy.app.route('/trivia/')
+def trivia():
+    return flask.render_template("trivia.html")

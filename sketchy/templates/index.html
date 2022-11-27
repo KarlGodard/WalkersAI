@@ -1,239 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<style>
-  .box {
-    text-align: center;
-    margin: auto;
-    position: relative;
-    top: 230px; /* 230 */
-  }
-
-  .title {
-    text-align: center;
-    display: block;
-    margin: auto;
-    position: relative;
-    top: -100px;
-    font-size: 100px;
-    font-family: 'Brush Script MT';
-    color: #DC143C;
-    font-stretch: 200%;
-  }
-  .brush{
-    text-align: center;
-    display: block;
-    margin: auto;
-    position: relative;
-    padding-bottom: 10px;
-    top: 130px; /* 205 */
-  }
-   body {
-    background-color: #FBEEAC;
-  }
-  
-
-  #bodybox {
-    margin: auto;
-    position: relative;
-    top: -30px;
-    max-width: 550px;
-    font: 15px arial, sans-serif;
-    background-color: white;
-    border-style: solid;
-    border-width: 1px;
-    padding-top: 20px;
-    padding-bottom: 25px;
-    padding-right: 25px;
-    padding-left: 25px;
-    box-shadow: 5px 5px 5px grey;
-    border-radius: 15px;
-  }
-
-  #chatborder {
-    border-style: solid;
-    background-color: #f6f9f6;
-    border-width: 3px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 15px;
-    padding-right: 20px;
-    padding-left: 15px;
-    border-radius: 15px;
-  }
-
-  .chatlog {
-    font: 15px arial, sans-serif;
-  }
-
-  #chatbox {
-    font: 17px arial, sans-serif;
-    height: 22px;
-    width: 100%;
-  }
-
-  h1 {
-    margin: auto;
-  }
-
-  pre {
-    background-color: #f0f0f0;
-    margin-left: 20px;
-  }
-</style>
-
-<title>Sketchy Chatbot</title>
-
-
-<!-- DIVIDER: FORMATTING ABOVE -->
-<!-- DIVIDER: ICON BAR BELOW -->
-
-
-<!-- Icon Bar for navigation to different tabs -->
-<!-- Currently has icons: Home, Chat, History, Trivia -->
-<!-- To be added: Log in, Random Painting? -->
-<head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-  }
-  ul{
-	position:relative;/* set the position of the navigation bar*/
-	top: 20px;
-	/* left: 25%; */
-  /* transform: translate(-50%,-50%); */
-	margin: auto;
-  width: 40%;
-  height: 70px;
-	padding: 10px; /* Adding some padding */
-	background: #fff; /* Add a white background color to the top navigation */
-	display: flex; /* flex Set navigation bar horizontally using the  display tag*/
-	border-radius: 10px; /* add the border radius */
-	box-shadow: 0 10px 30px rgba(0,0,0,.3)
-}
- /* Style the links inside the navigation bar */
-ul li{
-	list-style: none;
-	text-align: center;
-	display: block;
-	border-right: 1px solid rgba(0,0,0,0.2);
-}
-ul li:last-child{
-	border-right: none;
-}
-ul li a{
-	text-decoration: none;
-	padding: 0 58px;
-	display: block;
-}
-/* Style the icon inside the navigation bar */
-ul li a .icon{
-	width: 40px; /* changing the width of the icon */
-	height: 40px; /* changing the height of the icon */
-	text-align: center;
-	
-	overflow: hidden;
-	/* margin: 0 auto 10px; */
-	
-}
-/* set the size, height, width of the icon*/
-ul li a .icon .fa{
-	width: 100%;
-	height: 100%;
-	line-height: 40px;
-	font-size: 34px;
-	transition: 0.5s; /* adding the transition to make it more attractive */
-	color: #000;
-}
-
-/* Change the color of icon on hover */
-ul li a .icon .fa:last-child{
-	color: aqua;
-}
-/* style the color and transform of the icon on hover */
-ul li a:hover .icon .fa{
-	transform: translateY(-100%); /* translate y to add the hover effect */
-}
-ul li a .material-icons{
-	position: relative;
-	height: 40px; 
-	width: 100%;
-	display: block;
-	overflow: hidden;/*make ul li a .name overflow is hidden*/
-}
-/*style the font size and set transition of the navigation menu*/
-ul li a .material-icons span{
-	display: block;
-	position: relative;
-	color: #000;
-	font-size: 30px; /* changing font size */
-	line-height: 35px;
-	transition: 0.5s; /* adding the transition to make it more attractive */
-	
-}
-/*set and change position, top, width, left, height color of the 'class'.name span:before*/
-ul li a .material-icons span:before{
-	content: attr(data-text);
-	position: absolute;
-	top: -100%;
-	width: 100%;
-	left: 0;
-	height: 100;
-	color: aqua;
-	
-}
-
-</style>
+{% extends "layout.html" %}
+{% block content %}
 
 <!-- On load, sends welcome message to user --> 
 <body onload="welcomeMessage()">
-
-  <!-- Navigation bar with icons -->
-  <ul>
-    <li>
-      <a href="#">
-        <div class="icon">
-          <i class="fa fa-home" aria-hidden="true"></i>
-          <i class="fa fa-home" aria-hidden="true"></i>
-        </div>
-        <span class="material-icons">home</span>Home
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <div class="icon">
-          <i class="fa fa-chat" aria-hidden="true"></i>
-          <i class="fa fa-chat" aria-hidden="true"></i>
-        </div>
-        <span class="material-icons">question_answer</span>Chat
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <div class="icon">
-          <i class="fa fa-history" aria-hidden="true"></i>
-          <i class="fa fa-history" aria-hidden="true"></i>
-        </div>
-        <span class="material-icons">history</span>History
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <div class="icon">
-          <i class="fa fa-trivia" aria-hidden="true"></i>
-          <i class="fa fa-trivia" aria-hidden="true"></i>
-        </div>
-        <span class="material-icons">tips_and_updates</span>Trivia
-      </a>
-    </li>
-  </ul>
 
   <!-- Plain old HTML and jinja2 nav bar goes here
   <div>
@@ -363,36 +132,21 @@ ul li a .material-icons span:before{
           //utterance.lang = 'en-US';
           speechSynthesis.speak(utterance);
         }
-      }
-
-     
-      
-
-      
+      }  
   </script>
-
-
-  <div>
-    <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
-    <div class="title">Sketchy</div>
     
-    <br><br>
-    <!-- <iframe allow="microphone;" width="350" height="430"
-      src="https://console.dialogflow.com/api-client/demo/embedded/0761f432-34d6-45a3-ae1f-3143e8787493">
-    </iframe> -->
-    
-    <div id='bodybox'>
-      <div id='chatborder'>
-        <p id="chatlog7" class="chatlog">&nbsp;</p>
-        <p id="chatlog6" class="chatlog">&nbsp;</p>
-        <p id="chatlog5" class="chatlog">&nbsp;</p>
-        <p id="chatlog4" class="chatlog">&nbsp;</p>
-        <p id="chatlog3" class="chatlog">&nbsp;</p>
-        <p id="chatlog2" class="chatlog">&nbsp;</p>
-        <p id="chatlog1" class="chatlog">&nbsp;</p>
-        <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Type here to talk to me." onfocus="placeHolder()">
-      </div>
-   </div> 
+  <div id='bodybox'>
+    <div id='chatborder'>
+      <p id="chatlog7" class="chatlog">&nbsp;</p>
+      <p id="chatlog6" class="chatlog">&nbsp;</p>
+      <p id="chatlog5" class="chatlog">&nbsp;</p>
+      <p id="chatlog4" class="chatlog">&nbsp;</p>
+      <p id="chatlog3" class="chatlog">&nbsp;</p>
+      <p id="chatlog2" class="chatlog">&nbsp;</p>
+      <p id="chatlog1" class="chatlog">&nbsp;</p>
+      <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Type here to talk to me." onfocus="placeHolder()">
+    </div>
+  </div> 
 
   <!--
   <div id="reactEntry">
@@ -405,6 +159,4 @@ ul li a .material-icons span:before{
 </body>
 
 
-<br>
-
-</html>
+{% endblock %}

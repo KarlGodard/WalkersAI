@@ -1,6 +1,5 @@
 PRAGMA foreign_keys = ON;
 
-
 CREATE TABLE artists(
   constituentID INTEGER NOT NULL PRIMARY KEY,
   displayName VARCHAR(30),
@@ -15,7 +14,13 @@ CREATE TABLE artists(
 
 CREATE TABLE artworks(
   title VARCHAR(60) NOT NULL,
-  constituentID INTEGER NOT NULL,
+  artist VARCHAR(60),
+  artistBio VARCHAR(40),
+  nationality VARCHAR(30),
+  beginDate VARCHAR(6),
+  endDate VARCHAR(6),
+  gender VARCHAR(10),
+  constituentID REAL NOT NULL,
   date VARCHAR(20),
   medium VARCHAR(40),
   dimensions VARCHAR(40),
@@ -23,20 +28,20 @@ CREATE TABLE artworks(
   accessionNumber INTEGER,
   classification VARCHAR(30),
   department VARCHAR(40),
-  dateAcquired TIMESTAMP,
+  dateAcquired VARCHAR(20),
   cataloged VARCHAR(2),
   objectID INTEGER NOT NULL PRIMARY KEY,
   url VARCHAR(60),
   ThumbnailURL VARCHAR(60),
-  circumference INTEGER,
-  depth INTEGER,
-  diameter INTEGER,
-  height INTEGER,
-  length INTEGER,
-  weight INTEGER,
-  width INTEGER,
-  seatHeight INTEGER,
-  duration INTEGER,
+  circumference REAL,
+  depth REAL,
+  diameter REAL,
+  height REAL,
+  length REAL,
+  weight REAL,
+  width REAL,
+  seatHeight REAL,
+  duration REAL,
   Foreign Key(constituentID) References Artists(constituentID)
 );
 -- Title,

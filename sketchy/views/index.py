@@ -217,11 +217,6 @@ def index():
 def home():
     return flask.render_template("home.html")
 
-# Adds Sign up page to website
-@sketchy.app.route('/accounts/create/')
-def create_account():
-    return flask.render_template("create.html")
-
 # Adds History page to website
 @sketchy.app.route('/layout/')
 def layout():

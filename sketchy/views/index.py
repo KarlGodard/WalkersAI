@@ -120,7 +120,7 @@ def webhook():
         "SELECT ai.displayName "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE aw.title= ?",
+        "WHERE lower(aw.title) = lower(?)",
         (painting_name,)
         )
         painter_name = cur.fetchone()
@@ -132,7 +132,7 @@ def webhook():
         "SELECT ai.nationality "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE ai.displayName = ?",
+        "WHERE lower(ai.displayName) = lower(?)",
         (painter_name,)
         )
         nationality = cur.fetchone()
@@ -143,7 +143,7 @@ def webhook():
         "SELECT aw.medium "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE aw.title = ?",
+        "WHERE lower(aw.title) = lower(?)",
         (painting_name,)
         )
         item = cur.fetchone()
@@ -154,7 +154,7 @@ def webhook():
         "SELECT aw.dimensions "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE aw.title = ?",
+        "WHERE lower(aw.title) = lower(?)",
         (painting_name,)
         )
         item = cur.fetchone()
@@ -165,7 +165,7 @@ def webhook():
         "SELECT aw.date "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE aw.title = ?",
+        "WHERE lower(aw.title) = lower(?)",
         (painting_name,)
         )
         item = cur.fetchone()
@@ -176,7 +176,7 @@ def webhook():
         "SELECT ai.beginDate "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE ai.displayName = ?",
+        "WHERE lower(ai.displayName) = lower(?)",
         (artist_name,)
         )
         item = cur.fetchone()
@@ -187,7 +187,7 @@ def webhook():
         "SELECT ai.endDate "
         "FROM artworks aw "
         "JOIN artists ai ON ai.constituentID = aw.constituentID "
-        "WHERE ai.displayName = ?",
+        "WHERE lower(ai.displayName) = lower(?)",
         (artist_name,)
         )
         item = cur.fetchone()

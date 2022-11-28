@@ -15,12 +15,12 @@ CREATE TABLE artists(
 CREATE TABLE artworks(
   title VARCHAR(60) NOT NULL,
   artist VARCHAR(60),
+  constituentID INTEGER NOT NULL,
   artistBio VARCHAR(40),
   nationality VARCHAR(30),
   beginDate VARCHAR(6),
   endDate VARCHAR(6),
   gender VARCHAR(10),
-  constituentID REAL NOT NULL,
   date VARCHAR(20),
   medium VARCHAR(40),
   dimensions VARCHAR(40),

@@ -1,5 +1,5 @@
 #!/bin/bash
-# skechydb
+# sketchydb
 
 # Stop on errors
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
@@ -21,53 +21,29 @@ case $1 in
     if [ -f "var/sketchy.sqlite3" ]; then
        echo "Error: database already exists" 
     else
-       mkdir -p var/uploads
+       mkdir -p var/data
        sqlite3 var/sketchy.sqlite3 < sql/schema.sql
-       sqlite3 var/sketchy.sqlite3 < sql/data.sql
-       cp sql/uploads/* var/uploads/
+       sqlite3 var/sketchy.sqlite3 ".mode csv" ".import sql/data/Artists.csv artists" ".exit"
+       sqlite3 var/sketchy.sqlite3 ".mode csv" ".import sql/data/Artworks.csv artworks" ".exit"
     fi
 
     ;;
 
   "destroy")
-    rm -rf var/sketchy.sqlite3 var/uploads
+    rm -rf var/sketchy.sqlite3 var/data
     ;;
 
   "reset")
-    rm -rf var/sketchy.sqlite3 var/uploads
-    mkdir -p var/uploads
-    sqlite3 var/sketchy.sqlite3 < sql/schema.sql
-    sqlite3 var/sketchy.sqlite3 < sql/data.sql
-    cp sql/uploads/* var/uploads/
+    rm -rf var/sketchy.sqlite3 var/data
+    mkdir -p var/data
+       sqlite3 var/sketchy.sqlite3 < sql/schema.sql
+       sqlite3 var/sketchy.sqlite3 ".mode csv" ".import sql/data/Artists.csv artists" ".exit"
+       sqlite3 var/sketchy.sqlite3 ".mode csv" ".import sql/data/Artworks.csv artworks" ".exit"
     ;;
 
   "dump")
-    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM comments'
-    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM following'
-    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM likes'
-    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM posts'
-    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM users'
-    ;;
-  "random")
-    SHUF=shuf
-    # If shuf is not on this machine, try to use gshuf instead
-    if ! type shuf 2> /dev/null; then
-      SHUF=gshuf
-    fi
-    DB_FILENAME=var/sketchy.sqlite3
-    FILENAMES="122a7d27ca1d7420a1072f695d9290fad4501a41.jpg
-              ad7790405c539894d25ab8dcf0b79eed3341e109.jpg
-              9887e06812ef434d291e4936417d125cd594b38a.jpg
-              2ec7cf8ae158b3b1f40065abfb33e81143707842.jpg"
-    for i in `seq 1 100`; do
-      # echo $FILENAMES      print string
-      # shuf -n1             select one random line from multiline input
-      # awk '{$1=$1;print}'  trim leading and trailing whitespace
-      # Use '${SHUF}' instead of 'shuf'
-      FILENAME=`echo "$FILENAMES" | ${SHUF} -n1 | awk '{$1=$1;print}'`
-      OWNER="awdeorio"
-      sqlite3 -echo -batch ${DB_FILENAME} "INSERT INTO posts(filename, owner) VALUES('${FILENAME}','${OWNER}');"
-    done
+    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM artists LIMIT 10'
+    sqlite3 -batch -line var/sketchy.sqlite3 'SELECT * FROM artworks LIMIT 10'
     ;;
     *)
     usage

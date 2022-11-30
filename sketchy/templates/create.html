@@ -1,43 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>insta485</title>
-<div>
-    <a href="/">
-        <img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
-    </a>
-    <div style="float:right;">
-        <a href="/accounts/login">Login </a>
+{% extends "layout.html" %}
+{% block content %}
+
+
+<style>
+    #signup-header-1 {
+        text-align: center;
+    }
+  
+    #signup-header-2 {
+        text-align: center;
+    }
+
+    #signup-error {
+        position: relative;
+        margin: auto;
+        width: 30%;
+        text-align: center;
+        padding: 5px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #8a0000;
+        border: 1px solid #8a0000;
+        background-color: #e58f8f;
+    }
+
+    #signup-form {
+        align-self: flex-start;
+        margin-top: 10px;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .signup-form-field {
+  	    border: none;
+  	    border-bottom: 1px solid #3a3a3a;
+  	    margin-bottom: 10px;
+  	    border-radius: 3px;
+        background-color: #faffff;
+  	    outline: none;
+  	    padding: 0px 0px 7px 7px;
+    }
+
+  #signup-form-submit {
+    width: 20%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 7px;
+    color: white;
+    font-weight: bold;
+    background-color: #031954;
+    cursor: pointer;
+    outline: none;
+  }
+
+</style>
+
+
+<div id='bodybox'>
+    <div id='chatborder'>
+
+        <h1 id="signup-header-1">Welcome to Sketchy Chatbot!</h1>
+        <h2 id="signup-header-2">Create a new account</h2>
+
+        {% if message %}
+            <div id="signup-error" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
+
+        <form id="signup-form" method="post">
+            <input type="text" name="username" id="username-field" class="signup-form-field" placeholder="Username" required>
+            <input type="password" name="password" id="password-field" class="signup-form-field" placeholder="Password" required>
+            <input type="submit" value="Sign Up" id="signup-form-submit">
+        </form>
+    
+        <p>Have an account? <a href="http://localhost:8000/accounts/login">Login</a></p>
     </div>
-</div>
-<hr>
-<!-- DO NOT CHANGE THIS (aside from styling) -->
-<form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
-    <strong>Photo </strong>
-    <input type="file" name="file" required />
-    <br>
-    <br>
-    <strong>Name </strong>
-    <input type="text" name="fullname" required />
-    <br>
-    <br>
-    <strong>Username </strong>
-    <input type="text" name="username" required />
-    <br>
-    <br>
-    <strong>Email </strong>
-    <input type="text" name="email" required />
-    <br>
-    <br>
-    <strong>Password </strong>
-    <input type="password" name="password" required />
-    <br>
-    <br>
-    <input type="submit" name="signup" value="sign up" />
+  </div> 
 
-    <p>Have an account?
-        <a href="/accounts/login">Login </a>
-    </p>
-    <input type="hidden" name="operation" value="create" />
-</form>
+  <!--
+<script>
 
-</html>
+    const signupForm = document.getElementById("signup-form");
+    const signupButton = document.getElementById("signup-form-submit");
+    const signupErrorMsg = document.getElementById("signup-error-msg");
+
+    signupButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        const username = signupForm.username.value;
+        const password = signupForm.password.value;
+
+        if (username !== "user") {
+            alert("Account successfully created.");
+            location.reload();
+        } else {
+            signupErrorMsg.style.opacity = 1;
+        }
+    })
+
+</script>
+-->
+
+{% endblock %}

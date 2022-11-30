@@ -1,93 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<style>
-  .box {
-    text-align: center;
-    margin: auto;
-    position: relative;
-    top: 230px;
-  }
+{% extends "layout.html" %}
+{% block content %}
 
-  .title {
-    text-align: center;
-    display: block;
-    margin: auto;
-    position: relative;
-    top: -50px;
-    font-size: 100px;
-    font-family: 'Brush Script MT';
-    color: #DC143C;
-    font-stretch: 200%;
-  }
-  .brush{
-    text-align: center;
-    display: block;
-    margin: auto;
-    position: relative;
-    padding-bottom: 50px;
-    top: 205px;
-  }
-   body {
-    background-color: #FBEEAC;
-  }
-  
+<!-- On load, sends welcome message to user --> 
+<body onload="welcomeMessage()">
 
-  #bodybox {
-    margin: auto;
-    position: relative;
-    max-width: 550px;
-    font: 15px arial, sans-serif;
-    background-color: white;
-    border-style: solid;
-    border-width: 1px;
-    padding-top: 20px;
-    padding-bottom: 25px;
-    padding-right: 25px;
-    padding-left: 25px;
-    box-shadow: 5px 5px 5px grey;
-    border-radius: 15px;
-  }
-
-  #chatborder {
-    border-style: solid;
-    background-color: #f6f9f6;
-    border-width: 3px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 15px;
-    padding-right: 20px;
-    padding-left: 15px;
-    border-radius: 15px;
-  }
-
-  .chatlog {
-    font: 15px arial, sans-serif;
-  }
-
-  #chatbox {
-    font: 17px arial, sans-serif;
-    height: 22px;
-    width: 100%;
-  }
-
-  h1 {
-    margin: auto;
-  }
-
-  pre {
-    background-color: #f0f0f0;
-    margin-left: 20px;
-  }
-</style>
-
-<title>Walkers AI</title>
-
-
-
-<body>
   <!-- Plain old HTML and jinja2 nav bar goes here
   <div>
     <a href="/">
@@ -109,7 +25,7 @@
     var messages = ["Hello, how can I help you?"], //array that hold the record of each string in chat
 lastUserMessage = "", //keeps track of the most recent input string from the user
 botMessage = "", //var keeps track of what the chatbot is going to say
-botName = 'Skechy', //name of the chatbot
+botName = 'Sketchy', //name of the chatbot
 talking = true; //when false the speach function doesn't work
       
 
@@ -118,49 +34,28 @@ talking = true; //when false the speach function doesn't work
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
 
-//clears the placeholder text ion the chatbox
-//this function is set to run when the users brings focus to the chatbox, by clicking on it
-function placeHolder() {
-    document.getElementById("chatbox").placeholder = "";
-}
+      //clears the placeholder text ion the chatbox
+      //this function is set to run when the users brings focus to the chatbox, by clicking on it
+      function placeHolder() {
+        document.getElementById("chatbox").placeholder = "";
+      }
 
 
-//if the key pressed is 'enter' runs the function newEntry()
-function keyPress(e) {
-var x = e || window.event;
-var key = (x.keyCode || x.which);
-if (key == 13 || key == 3) {
-    //runs this function when enter is pressed
-    newEntry();
-}
-if (key == 38) {
-    console.log('hi')
-    //document.getElementById("chatbox").value = lastUserMessage;
-}
-}
+      //if the key pressed is 'enter' runs the function newEntry()
+      function keyPress(e) {
+        var x = e || window.event;
+        var key = (x.keyCode || x.which);
+        if (key == 13 || key == 3) {
+          //runs this function when enter is pressed
+          newEntry();
+        }
+        if (key == 38) {
+          console.log('hi')
+          //document.getElementById("chatbox").value = lastUserMessage;
+        }
+      }
 
-//this runs each time enter is pressed.
-//It controls the overall input and output
-function newEntry() {
-//if the message from the user isn't empty then run
-console.log("Hello");
-if (document.getElementById("chatbox").value != "") {
-    //pulls the value from the chatbox ands sets it to lastUserMessage
-    lastUserMessage = document.getElementById("chatbox").value;
-    //sets the chat box to be clear
-    document.getElementById("chatbox").value = "";
-    //adds the value of the chatbox to the array messages
-    messages.push(lastUserMessage);
-    //Speech(lastUserMessage);  //says what the user typed outloud
-    //sets the variable botMessage in response to lastUserMessage
-    chatbotResponse(lastUserMessage);
 
-    //console.log(botMessage)
-    //Speech(botMessage);
-    //add the chatbot's name and message to the array messages
-    
-}
-}
 
 
 const chatbotResponse = async (lastUserMessage) => {
@@ -291,6 +186,4 @@ if ('speechSynthesis' in window && talking) {
 </body>
 
 
-<br>
-
-</html>
+{% endblock %}

@@ -1,0 +1,58 @@
+{
+    "name": [
+       "What is the name of this painting",
+       "What is this painting called?",
+       "Name?",
+       "Name of painting?",
+       "Painting name?",
+       "What is the title of this painting?",
+       "What is this piece of art called?",
+       "What should I call this painting?"
+    ],
+    "painter": [
+        "Who created this painting",
+        "Who drew this painting",
+        "Name of painter?",
+        "Created by whom?",
+        "Who is the creator of this painter?",
+        "Who is this painting by",
+        "Painter?", 
+        "What was the name of the person who painting this piece of art",
+        "Who made this?"
+    ],
+    "medium": [
+        "what is the medium of this painting",
+        "What type of painting is this?",
+        "How was this painting made?",
+        "Type of paint?",
+        "How would you make this?",
+        "How was this painting created",
+        "Painting type?",
+        "Oil or acrylic?",
+        "Acrylic paint?",
+        "What materials were used for this?"
+    ],
+    "select painting": [
+        "I want to hear about this painting",
+        "Do you know of this painting?",
+        "Can I ask about this?",
+        "Are you aware of this painting?",
+        "I know what to ask about",
+        "What do you know about this?",
+        "How about this one?",
+        "Can I pick this painting?"
+    ],
+    "back to select": [
+        "I'm done with this painting",
+        "Let's look at something else",
+        "I don't have any more questions",
+        "No, I want to look at another painting",
+        "Stop here",
+        "Another painting please",
+        "I want to ask about a different painting",
+        "I've seen enough here",
+        "That's all",
+        "Freshen things up",
+        "Go to a new one"
+    ]
+}

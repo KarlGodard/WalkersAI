@@ -11,35 +11,22 @@
         text-align: center;
     }
 
-    #signup-error-msg-holder {
+    #signup-error {
         position: relative;
-        top: -20px;
-        width: 100%;
-        height: 100%;
-        display: grid;
-        justify-items: center;
-        align-items: center;
-    }
-
-    #signup-error-msg {
-        width: 23%;
+        margin: auto;
+        width: 30%;
         text-align: center;
-        margin: 0;
         padding: 5px;
         font-size: 12px;
         font-weight: bold;
         color: #8a0000;
         border: 1px solid #8a0000;
         background-color: #e58f8f;
-        opacity: 0;
-    }
-
-    #error-msg-second-line {
-        display: block;
     }
 
     #signup-form {
         align-self: flex-start;
+        margin-top: 10px;
         display: grid;
         justify-items: center;
         align-items: center;
@@ -70,16 +57,18 @@
 
 </style>
 
+
 <div id='bodybox'>
     <div id='chatborder'>
+
         <h1 id="signup-header-1">Welcome to Sketchy Chatbot!</h1>
         <h2 id="signup-header-2">Create a new account</h2>
-        <br>
 
-        <!-- Shows up if username/password is invalid, normally hidden  -->
-        <div id="signup-error-msg-holder">
-            <p id="signup-error-msg">That username <span id="error-msg-second-line">is already taken</span></p>
-        </div>
+        {% if message %}
+            <div id="signup-error" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
 
         <form id="signup-form" method="post">
             <input type="text" name="username" id="username-field" class="signup-form-field" placeholder="Username" required>
@@ -113,11 +102,5 @@
 
 </script>
 -->
-
-{% if message  %}
-    <script>
-        signupErrorMsg.style.opacity = 1;
-    </script>
-{% endif %}
 
 {% endblock %}

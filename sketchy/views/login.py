@@ -4,15 +4,17 @@ import sketchy
 import pymongo
 import bcrypt
 
-@sketchy.app.route('/accounts/logout/', methods=["POST"])
-def logout():
-    """Logout."""
-    if flask.request.method == "POST" and 'username' not in flask.session:
-       flask.abort(403)
-    # POST-only route for handling logout requests
-    flask.session.clear()
-    return flask.redirect(flask.url_for('login'))
 
+# Logout page
+# If user is logged in, redirects to telling user they have logged out
+# If user was not logged in, redirects to login page
+@sketchy.app.route('/accounts/logout/', methods=["POST", "GET"])
+def logout():
+    if "username" in flask.session:
+        flask.session.pop("username", None)
+        return flask.render_template("signout.html")
+    else:
+        return flask.render_template("login.html")
 
 
 # Login page
@@ -22,7 +24,7 @@ def logout():
 def login():
     message = ''
     if "username" in flask.session:
-        return flask.redirect(flask.url_for("user"))
+        return flask.render_template('user.html')
     if flask.request.method == "POST":
         user = flask.request.form.get("username")
         
@@ -33,13 +35,13 @@ def login():
         db = client.sketchy
         records = db.users
         
-        user_found = sketchy.records.find_one({"name": user})
+        user_found = sketchy.records.find_one({"username": user})
         if user_found:
-            user_val = user_found["name"]
+            user_val = user_found["username"]
             passwordcheck = user_found["password"]
 
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
-                flask.session["name"] = user_val
+                flask.session["username"] = user_val
                 return flask.redirect(flask.url_for('logged_in'))
             else:
                 message = "Wrong password"
@@ -66,23 +68,23 @@ def create_account():
         db = client.sketchy
         records = db.users
         
-        user_found = records.find_one({"name": user})
+        user_found = records.find_one({"username": user})
         if user_found:
             message = 'There already is a user by that name'
             return flask.render_template('create.html', message=message)
         else:
             hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'name': user, 'password': hashed}
+            user_input = {'username': user, 'password': hashed}
             records.insert_one(user_input)
    
-            return flask.render_template('user.html')
+            return flask.render_template('user.html', username=user)
     return flask.render_template("create.html")
 
 # Logged in page: if the user is already logged in
 @sketchy.app.route('/user/')
 def logged_in():
-    if "name" in flask.session:
-        name = flask.session["name"]
-        return flask.render_template('user.html', name=name)
+    if "username" in flask.session:
+        username = flask.session["username"]
+        return flask.render_template('user.html', username=username)
     else:
-        return sketchy.redirect(flask.url_for("login.html"))
+        return flask.redirect(flask.url_for("login"))

@@ -7,7 +7,9 @@ URLs include:
 # import os
 import flask
 import sketchy
+from serpapi import GoogleSearch
 
+serpapi_key = "24f09a125c045af29485bcb5e2c2bcea6aa4ce1bb8a5590407438d9fdcf8789e"
 
 @sketchy.app.route("/comments/", methods=["POST"])
 def handle_comment():
@@ -108,6 +110,7 @@ def show_index():
 def webhook():
     connection = sketchy.model.get_db()
     req = flask.request.get_json(silent=True, force=True)
+    print(req)
     fulfillmentText = ''
     query_result = req.get('queryResult')
     if query_result.get('action') == 'get.painter':
@@ -192,10 +195,52 @@ def webhook():
         )
         item = cur.fetchone()
         fulfillmentText = artist_name + " stopped his career in " + str(item['endDate'])
+    if query_result.get('action') == 'get.identifyArt':
+        question = query_results.get('queryText')
+        fulfillmentText = identify_art_from_desc(question)
     return {
             "fulfillmentText": fulfillmentText,
             "source": "webhookdata"
         }
+
+def identify_art_from_desc(question):
+    params = {
+        "q": question,
+        "hl": "en",
+        "gl": "us",
+        "api_key": serpapi_key
+    }
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    
+    if "answer_box" in results.keys():
+        answer_box = results["answer_box"]
+        #Fix spelling error if one was detected
+        if results["search_information"]["organic_results_state"] == "Showing results for exact spelling despite spelling suggestion":
+            print("SPELLING ERROR. RETRYING")
+            #Will not cause infinite loop unless Google's spelling correction stops working
+            return identify_art_from_desc(results["search_information"]["spelling_fix"])
+        
+        if answer_box["type"] == 'organic_result':
+            answer = answer_box["title"]
+            try:
+                return answer_box["title"][:answer.index(" - Wikipedia")]
+            except ValueError:
+                return answer_box["title"]
+
+    elif "knowledge_graph" in results.keys():
+        art_list = []
+        for key in results["knowledge_graph"].keys():
+            for artwork in results["knowledge_graph"][key][:4]:
+                art_list.append(artwork["name"] + " (by " + artwork["extensions"][0] + ")")
+        output = "Here are some artworks matching that description: "
+        for line in art_list[:-1]:
+            output += line + ", "
+        output += "and " + art_list[-1] + "."
+        return output
+    else:
+        return "I couldn't find any specific paintings matching that description."
+
 
 
 @sketchy.app.route("/uploads/<filename>")

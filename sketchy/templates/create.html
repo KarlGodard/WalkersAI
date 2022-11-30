@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+
 <style>
     #signup-header-1 {
         text-align: center;
@@ -80,16 +81,17 @@
             <p id="signup-error-msg">That username <span id="error-msg-second-line">is already taken</span></p>
         </div>
 
-        <form id="signup-form">
+        <form id="signup-form" method="post">
             <input type="text" name="username" id="username-field" class="signup-form-field" placeholder="Username" required>
             <input type="password" name="password" id="password-field" class="signup-form-field" placeholder="Password" required>
             <input type="submit" value="Sign Up" id="signup-form-submit">
         </form>
     
-        <p>Have an account? <a href="http://localhost:8000/home">Login</a></p>
+        <p>Have an account? <a href="http://localhost:8000/accounts/login">Login</a></p>
     </div>
   </div> 
 
+  <!--
 <script>
 
     const signupForm = document.getElementById("signup-form");
@@ -110,5 +112,12 @@
     })
 
 </script>
+-->
+
+{% if message  %}
+    <script>
+        signupErrorMsg.style.opacity = 1;
+    </script>
+{% endif %}
 
 {% endblock %}

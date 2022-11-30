@@ -19,3 +19,6 @@ trivia.py
 mydatabase
 mvpArtBot.jac
 dialogue_intent_model/
+
+lib/
+lib64/

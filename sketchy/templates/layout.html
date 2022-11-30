@@ -75,6 +75,30 @@
     font: 15px arial, sans-serif;
   }
 
+  .upload-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .upload-icon .fa{
+	width: 100%;
+	height: 100%;
+	line-height: 20px;
+	font-size: 25px;
+	color: #000;
+}
+
+.upload-icon:hover .fa {
+  color: gray;
+}
+
+  /* Button that lets user upload an image */
+  #uploadphoto {
+    /* opacity: 0; */
+    /* overflow: hidden; */
+    margin-bottom: 10px;
+  }
+
   /* Area where user types, contained inside .chatlog */
   #chatbox {
     font: 17px arial, sans-serif;
@@ -216,11 +240,11 @@ ul li a .name span{
       </a>
     </li>
     <li>
-      <a href="http://localhost:8000/trivia">
+      <a href="http://localhost:8000/accounts/login">
         <div class="icon">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-person" aria-hidden="true"></i>
         </div>
-        <div class="name"><span data-text="Trivia">Trivia</span></div>
+        <div class="name"><span data-text="User">User</span></div>
       </a>
     </li>
   </ul>

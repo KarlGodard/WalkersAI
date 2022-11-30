@@ -132,6 +132,9 @@
           speechSynthesis.speak(utterance);
         }
       }  
+
+
+
   </script>
     
   <div id='bodybox'>
@@ -143,6 +146,14 @@
       <p id="chatlog3" class="chatlog">&nbsp;</p>
       <p id="chatlog2" class="chatlog">&nbsp;</p>
       <p id="chatlog1" class="chatlog">&nbsp;</p>
+      <form id="uploadImage">
+        <input type="file" id="uploadphoto" name="photo" accept="image/png, image/jpeg, image/jpg" />
+      </form>
+      <!-- <label for="uploadimage">
+        <div class="upload-icon">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </div>
+      </label> -->
       <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Type here to talk to me." onfocus="placeHolder()">
     </div>
   </div> 

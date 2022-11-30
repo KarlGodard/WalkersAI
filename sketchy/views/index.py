@@ -262,6 +262,11 @@ def index():
 def home():
     return flask.render_template("home.html")
 
+# Adds Search for painting page to website
+@sketchy.app.route('/search/')
+def search():
+    return flask.render_template("search.html")
+
 # Adds History page to website
 @sketchy.app.route('/layout/')
 def layout():

@@ -13,7 +13,6 @@ node trivia_node:parent_node {
         num_trivia = 20;
         trivia_list = file.load_json("artTrivia2.json");
         trivia_seed = rand.integer(0, num_trivia);
-        std.out(trivia_list);
         trivia_pair = trivia_list["Trivia Pairs"][trivia_seed];
         
 
@@ -42,6 +41,7 @@ node trivia_node:parent_node {
 }
 
 
+
 graph dialogue_system {
     has anchor dialogue_root;
     spawn {
@@ -66,7 +66,7 @@ walker bot {
     has wlk_ctx = {};
     has response;
     root {
-        question = std.input("How can I assist you today? > ");
+        //question = std.input("How can I assist you today? > ");
         take -->;
     }
 

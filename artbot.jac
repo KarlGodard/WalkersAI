@@ -86,7 +86,6 @@ node trivia_node:parent_node {
         } else {
             std.out("Sorry, the correct answer was: ");
             std.out(trivia_pair[1]);
-            std.out("\n");
         }
 
 

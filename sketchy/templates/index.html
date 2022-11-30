@@ -106,117 +106,158 @@
   -->
   <!--<script type="text/javascript" src="/sketchy/js/index.jsx"></script>-->
   <script>
-    var messages = [], //array that hold the record of each string in chat
-        lastUserMessage = "", //keeps track of the most recent input string from the user
-        botMessage = "", //var keeps track of what the chatbot is going to say
-        botName = 'Skechy', //name of the chatbot
-        talking = true; //when false the speach function doesn't work
+    var messages = ["Hello, how can I help you?"], //array that hold the record of each string in chat
+lastUserMessage = "", //keeps track of the most recent input string from the user
+botMessage = "", //var keeps track of what the chatbot is going to say
+botName = 'Skechy', //name of the chatbot
+talking = true; //when false the speach function doesn't work
       
-      //runs the keypress() function when a key is pressed
-      document.onkeypress = keyPress;
 
-      //clears the placeholder text ion the chatbox
-      //this function is set to run when the users brings focus to the chatbox, by clicking on it
-      function placeHolder() {
-        document.getElementById("chatbox").placeholder = "";
-      }
+//document.getElementById("chatlog1").innerHTML = "Hello, how can I help you?";
+
+//runs the keypress() function when a key is pressed
+document.onkeypress = keyPress;
+
+//clears the placeholder text ion the chatbox
+//this function is set to run when the users brings focus to the chatbox, by clicking on it
+function placeHolder() {
+    document.getElementById("chatbox").placeholder = "";
+}
 
 
-      //if the key pressed is 'enter' runs the function newEntry()
-      function keyPress(e) {
-        var x = e || window.event;
-        var key = (x.keyCode || x.which);
-        if (key == 13 || key == 3) {
-          //runs this function when enter is pressed
-          newEntry();
-        }
-        if (key == 38) {
-          console.log('hi')
-          //document.getElementById("chatbox").value = lastUserMessage;
-        }
-      }
+//if the key pressed is 'enter' runs the function newEntry()
+function keyPress(e) {
+var x = e || window.event;
+var key = (x.keyCode || x.which);
+if (key == 13 || key == 3) {
+    //runs this function when enter is pressed
+    newEntry();
+}
+if (key == 38) {
+    console.log('hi')
+    //document.getElementById("chatbox").value = lastUserMessage;
+}
+}
 
-      //this runs each time enter is pressed.
-      //It controls the overall input and output
-      function newEntry() {
-        //if the message from the user isn't empty then run
-        console.log("Hello");
-        if (document.getElementById("chatbox").value != "") {
-          //pulls the value from the chatbox ands sets it to lastUserMessage
-          lastUserMessage = document.getElementById("chatbox").value;
-          //sets the chat box to be clear
-          document.getElementById("chatbox").value = "";
-          //adds the value of the chatbox to the array messages
-          messages.push(lastUserMessage);
-          //Speech(lastUserMessage);  //says what the user typed outloud
-          //sets the variable botMessage in response to lastUserMessage
-          chatbotResponse(lastUserMessage);
-          //Speech(botMessage);
-          //add the chatbot's name and message to the array messages
-          messages.push("<b>" + botName + ":</b> " + botMessage);
-          // says the message using the text to speech function written below
-          Speech(botMessage);
-          //outputs the last few array elements of messages to html
-          for (var i = 1; i < 8; i++) {
-            if (messages[messages.length - i])
-              document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-          }
-        }
-      }
+//this runs each time enter is pressed.
+//It controls the overall input and output
+function newEntry() {
+//if the message from the user isn't empty then run
+console.log("Hello");
+if (document.getElementById("chatbox").value != "") {
+    //pulls the value from the chatbox ands sets it to lastUserMessage
+    lastUserMessage = document.getElementById("chatbox").value;
+    //sets the chat box to be clear
+    document.getElementById("chatbox").value = "";
+    //adds the value of the chatbox to the array messages
+    messages.push(lastUserMessage);
+    //Speech(lastUserMessage);  //says what the user typed outloud
+    //sets the variable botMessage in response to lastUserMessage
+    chatbotResponse(lastUserMessage);
 
-   
-      const chatbotResponse = async (lastUserMessage) => {
-          input = lastUserMessage;
-          let data = {
-          ctx: { "question": input },
-          name: "talk"
-          }
-        try {
-          // NOTE: Change this URL to your Jaseci server URL.
-          // NOTE: Change the token to your authenticated token
-          let result = await fetch('http://localhost:8000/js/walker_run', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'token bf6c3138799af356cbec27da90de0f7476fd9e25059c83dc0dfdd339ff68dd5b'
-            },
-            body: JSON.stringify(data),
-          })
+    //console.log(botMessage)
+    //Speech(botMessage);
+    //add the chatbot's name and message to the array messages
+    
+}
+}
 
-          result = await result.json();
 
-          const answer = result.report[0];
+const chatbotResponse = async (lastUserMessage) => {
+    input = lastUserMessage;
+    let data = {
+    ctx: { "response": input },
+    name: "bot"
+    }
+try {
+    // NOTE: Change this URL to your Jaseci server URL.
+    // NOTE: Change the token to your authenticated token
+    let result = await fetch('http://localhost:8000/js/walker_run', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token 10adc052d60972b2e6f1b8966407ab0e1cc42a2d1b3a9820b00382c29148bd28'
+    },
+    body: JSON.stringify(data),
+    })
 
-          botMessage = answer;
+    result = await result.json();
 
-        } catch (error) {
-          console.log(error)
-        }
-      } 
+    const answer = result.report[0];
+    console.log(answer)
+
+    botMessage = answer;
     
 
-      //text to Speech
-      //https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-      function Speech(say) {
-        if ('speechSynthesis' in window && talking) {
-          var utterance = new SpeechSynthesisUtterance(say);
-          //msg.voice = voices[10]; // Note: some voices don't support altering params
-          //msg.voiceURI = 'native';
-          //utterance.volume = 1; // 0 to 1
-          //utterance.rate = 0.1; // 0.1 to 10
-          //utterance.pitch = 1; //0 to 2
-          //utterance.text = 'Hello World';
-          //utterance.lang = 'en-US';
-          speechSynthesis.speak(utterance);
-        }
-      }
+    // if (answer == "Museums") {
+    //     console.log("Made it in the Museum conditional!")
 
-     
-      
+    //     // if (navigator.geolocation) {
+    //     //     console.log("Made it into geolocation!")
+    //     //     navigator.geolocation.getCurrentPosition(queryMapsAPI);
+    //     //   } else {
+    //     //     botMesssage = "Geolocation is not supported by this browser.";
+    //     //   }
+    //     queryMapsAPI()
+    // }
+    messages.push("<b>" + botName + ":</b> " + botMessage);
+    // says the message using the text to speech function written below
+    //Speech(botMessage);
+    //outputs the last few array elements of messages to html
+    for (var i = 1; i < 8; i++) {
+    if (messages[messages.length - i])
+        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+    }
 
-      
-  </script>
+} catch (error) {
+    console.log(error)
+}
+} 
+
+
+
+
+
+function httpGet(url)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function parseMapsResults(maps_results) {
+  botMessage = maps_results
+}
+
+function queryMapsAPI() {
+  latitude = 42.279545
+  longitude = -83.741063
+  url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/" + "json?" + latitude + "," + longitude + "&radius=1500&type=museum&key=AIzaSyCAT9OGOYQL6zPlTgc73N_MB1fDC-sXFks");
+  maps_response = httpGet(url);
+
+}
+
+
+
+//text to Speech
+//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+function Speech(say) {
+if ('speechSynthesis' in window && talking) {
+    var utterance = new SpeechSynthesisUtterance(say);
+    //msg.voice = voices[10]; // Note: some voices don't support altering params
+    //msg.voiceURI = 'native';
+    //utterance.volume = 1; // 0 to 1
+    //utterance.rate = 0.1; // 0.1 to 10
+    //utterance.pitch = 1; //0 to 2
+    //utterance.text = 'Hello World';
+    //utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+}
+}
+  </script> 
+
   <div>
     <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
     <div class="title">Sketchy</div>
@@ -234,7 +275,7 @@
         <p id="chatlog4" class="chatlog">&nbsp;</p>
         <p id="chatlog3" class="chatlog">&nbsp;</p>
         <p id="chatlog2" class="chatlog">&nbsp;</p>
-        <p id="chatlog1" class="chatlog">&nbsp;</p>
+        <p id="chatlog1" class="chatlog">Hello, how can I help you</p>
         <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
       </div>
    </div> 

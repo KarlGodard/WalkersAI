@@ -1,71 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>insta485</title>
-<div>
-	<a href="/">
-		<img src="/static/images/Insta-logo.jpg" alt="Insta485" style="width: 50px;height: 50px;">
-	</a>
-	<div style="float:right;">
-		<a href="/explore/">explore </a>
-		|
-		<a href="/users/{{logname}}/">
-			{{logname}}
-		</a>
-	</div>
-</div>
-<hr>
-{% if logname == username %}
-<form action="/accounts/logout/" method="post" enctype="multipart/form-data">
-	<input type="submit" name="logout" value="Logout" />
-	<br>
-	<strong>{{username}}</strong>
-</form>
-<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
-<form action="/posts/?target=/users/{{ username }}/" method="post" enctype="multipart/form-data">
-	<input type="file" name="file" accept="image/*" required />
-	<input type="submit" name="create_post" value="upload new post" />
-	<input type="hidden" name="operation" value="create" />
-</form>
-<a href="/accounts/edit/">Edit profile</a>
-{%endif%}
-{% if logname !=username %} {% if
-user_following==0 %}
-<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME' ) -->
-<form action="/following/?target=/users/{{ username }}/" method="post" enctype="multipart/form-data">
-	<input type="submit" name="follow" value="follow" />
-	<input type="hidden" name="username" value="{{ username }}" />
-	<input type="hidden" name="operation" value="follow" />
-</form>
-<div>Not following</div>
-{% else %}
-<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
-<form action="/following/?target=/users/{{ username }}/" method="post" enctype="multipart/form-data">
-	<input type="submit" name="unfollow" value="unfollow" />
-	<input type="hidden" name="username" value="{{ username }}" />
-	<input type="hidden" name="operation" value="unfollow" />
-</form>
-<div>Following</div>
-{% endif %}
-{% endif %}
-<br>
-{% if num_posts != 1%}
-{{num_posts}} posts
-{%else%}
-{{num_posts}} post
-{%endif%}
-<b>
-	<a href="/users/{{username}}/followers/">{{num_followers}} followers</a>
-	<a href="/users/{{username}}/following/">{{num_following}} following</a>
-</b>
-<br>
-{{fullname}}
-<br>
-<br>
-{% for post in posts %}
-<a href="/posts/{{post['postid']}}/">
-	<img src="{{url_for('upload_file', filename = post['filename'])}}" alt="image here"
-		style="width: 300px;height: 300px;">
-</a>
-{% endfor %}
-
-</html>
+{% extends "layout.html" %}
+{% block content %}
+    
+  <div id='bodybox'>
+    <div id='chatborder'>
+      <p>Hello! You have logged in as {{ name }}</p>
+    </div>
+  </div> 
+  
+{% endblock %}

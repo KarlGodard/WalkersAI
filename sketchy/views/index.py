@@ -273,6 +273,6 @@ def history():
     return flask.render_template("history.html")
 
     # Adds History page to website
-@sketchy.app.route('/trivia/')
-def trivia():
-    return flask.render_template("trivia.html")
+@sketchy.app.route('/about/')
+def about():
+    return flask.render_template("about.html")

@@ -139,10 +139,21 @@ def webhook():
     global question
     #print(content)
     # Store new Artist
+    #print(query_result.get('action'))
+    if query_result.get('action') == 'get.summary':
+        specific_artist = query_result.get('parameters')['name']
+        specific_artwork = query_result.get('parameters')['name']
+        content = content = wikipedia.page(query_result.get('parameters')['name']).content
+        fulfillmentText = wikipedia.summary(query_result.get('parameters')['name'], sentences=4)
+        reply = {
+            "fulfillmentText": fulfillmentText,
+            "source": "webhookdata"
+        }
     if query_result.get('action') == 'get.newArtist':
         specific_artist = query_result.get('parameters')['person']['name']
         print(specific_artist)
         content = wikipedia.page(specific_artist).content
+        print(wikipedia.summary(specific_artist))
         reply = fulfillment
     # Store new Artwork
     if query_result.get('action') == 'get.newArtwork':
@@ -150,6 +161,7 @@ def webhook():
         print(specific_artwork)
         #print(specific_artwork)
         content = wikipedia.page(specific_artwork).content
+        print(wikipedia.summary(specific_artwork, sentences=4))
         reply = fulfillment
     # Gets new Artwork Question
     if query_result.get('action') == 'get.newQuestion':

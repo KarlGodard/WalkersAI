@@ -1,14 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<style>
+#center {
+right: 100px;
+}
+</style>
 <!-- PUT IFRAME AND STUFF HERE -->
 
 <!-- Can remove this holder stuff afterwards -->
-<div id='bodybox'>
-    <div id='chatborder'>
-      <p>This is the DialogFlow page. It's currently a work in progress!</p>
-    </div>
-  </div> 
-
+  <div id='bodybox'>
+    
+  <div id='chatborder'>
+  <iframe allow="microphone;" width="475" height="430"
+        src="https://console.dialogflow.com/api-client/demo/embedded/0761f432-34d6-45a3-ae1f-3143e8787493">
+  </iframe>    
+  </div>
+  </div>
 
 {% endblock %}

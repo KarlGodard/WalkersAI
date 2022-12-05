@@ -11,15 +11,13 @@ import requests
 import wikipedia
 from serpapi import GoogleSearch
 
+serpapi_key = "51e0ce06fdd21377cd353feb0dd6e9549d0f975fe682b149f2955fb5d3c47abe"
 API_URL = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
 headers = {"Authorization": f"Bearer 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"}
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)
 	return response.json()
-
-
-serpapi_key = "24f09a125c045af29485bcb5e2c2bcea6aa4ce1bb8a5590407438d9fdcf8789e"
 
 @sketchy.app.route("/comments/", methods=["POST"])
 def handle_comment():

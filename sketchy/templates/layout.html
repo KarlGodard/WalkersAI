@@ -137,7 +137,7 @@ ul{
 	position:relative; /* Ses the position of the icon bar*/
 	top: 20px; /* Moves icon bar down a bit */
 	margin: auto; /* Centers icon bar */
-  max-width: 700px;
+  max-width: 800px;
   height: 60px;
 	padding: 10px 0px; /* Adding some padding */
 	background: #fff; /* Add a white background color to the top navigation */
@@ -160,7 +160,7 @@ ul li:last-child{
 ul li a{
 	text-decoration: none;
   /* padding: 10% 10% 10% 10%; */
-	padding: 10px 58px 0px; /* Sets padding between each "box" */
+	padding: 10px 48px 0px; /* Sets padding between each "box" */
 	display: block;
 }
 /* Style the icon inside the navigation bar */
@@ -215,7 +215,7 @@ ul li a .name span{
 
   <!-- Navigation bar with icons -->
   <ul>
-    <li>
+    <li id="icon-bar">
       <a href="http://localhost:8000/home">
         <div class="icon">
           <i class="fa fa-home" aria-hidden="true"></i>
@@ -223,7 +223,7 @@ ul li a .name span{
         <div class="name"><span data-text="Home">Home</span></div>
       </a>
     </li>
-    <li>
+    <li id="icon-bar">
       <a href="http://localhost:8000/">
         <div class="icon">
           <i class="fa fa-comments"></i>
@@ -231,7 +231,15 @@ ul li a .name span{
         <div class="name"><span data-text="Chat">Chat</span></div>
       </a>
     </li>
-    <li>
+    <li id="icon-bar">
+      <a href="http://localhost:8000/search">
+        <div class="icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <div class="name"><span data-text="Find Painting">Find Painting</span></div>
+      </a>
+    </li>
+    <li id="icon-bar">
       <a href="http://localhost:8000/history">
         <div class="icon">
           <i class="fa fa-history" aria-hidden="true"></i>
@@ -239,7 +247,7 @@ ul li a .name span{
         <div class="name"><span data-text="History">History</span></div>
       </a>
     </li>
-    <li>
+    <li id="icon-bar">
       <a href="http://localhost:8000/user">
         <div class="icon">
           <i class="fa fa-user" aria-hidden="true"></i>

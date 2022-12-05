@@ -1,9 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
+
+<style>
+  #home-header {
+    text-align: center;
+    overflow: auto;
+  }
+
+  #home-text {
+    overflow: auto;
+  }
+</style>
     
   <div id='bodybox'>
     <div id='chatborder'>
-      <p>This is the home page. It's currently a work in progress!</p>
+      <h2 id="user-header">Welcome to Sketchy! </h2>
+      <p>This is what Sketchy currently supports:</p>
+        <ol id="home-text">
+          <li>Identify paintings by name and answer questions about them</li>
+          <li>Save paintings you like and show them to you later</li>
+          <li>Do a trivia session with fun facts about famous artists; try to beat your best score!</li>
+        </ol>
+
+      <p>This is what Sketchy will be able to do soon:</p>
+        <ol id="home-text">
+          <li>Identify paintings when you upload an image</li>
+          <li>Identify paintings by description</li>
+        </ol>
     </div>
   </div> 
   

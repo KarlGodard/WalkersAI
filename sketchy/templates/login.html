@@ -10,35 +10,22 @@
         text-align: center;
     }
 
-    #login-error-msg-holder {
+    #login-error {
         position: relative;
-        top: -20px;
-        width: 100%;
-        height: 100%;
-        display: grid;
-        justify-items: center;
-        align-items: center;
-    }
-
-    #login-error-msg {
-        width: 23%;
+        margin: auto;
+        width: 30%;
         text-align: center;
-        margin: 0;
         padding: 5px;
         font-size: 12px;
         font-weight: bold;
         color: #8a0000;
         border: 1px solid #8a0000;
         background-color: #e58f8f;
-        opacity: 0;
-    }
-
-    #error-msg-second-line {
-        display: block;
     }
 
     #login-form {
         align-self: flex-start;
+        margin-top: 10px;
         display: grid;
         justify-items: center;
         align-items: center;
@@ -75,12 +62,12 @@
     <div id='chatborder'>
         <h1 id="login-header-1">Welcome to Sketchy Chatbot!</h1>
         <h2 id="login-header-2">Login to your account</h2>
-        <br>
 
-        <!-- Shows up if username/password is invalid, normally hidden  -->
-        <div id="login-error-msg-holder">
-            <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
-        </div>
+        {% if message %}
+            <div id="login-error" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endif %}
 
         <form id="login-form" method="post">
             <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
@@ -93,14 +80,6 @@
 
     </div>
 </div> 
-
-{% if message  %}
-    <div class="alert alert-secondary" role="alert">
-        <p>{{ message }}</p>
-    </div>
-    <script>alert("Wrong password!")</script>
-{% endif %}
-
 
 <!--
 <script>

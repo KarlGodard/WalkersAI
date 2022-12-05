@@ -1,9 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
+
+<style>
+  #user-header {
+    text-align: center;
+    overflow: auto;
+  }
+
+  #user-text {
+    overflow: auto;
+  }
+</style>
     
   <div id='bodybox'>
     <div id='chatborder'>
-      <p>Hello! You have logged in as {{ name }}</p>
+      <h2 id="user-header">Welcome back, {{ username }}! </h2>
+
+      <p id="user-text">Your best record in Trivia is <b>0 points</b>.</p>
+
+      <p id="user-text"><b>It looks like you don't have any Favorite Paintings yet.</b> You can favorite any painting you see to look at it later!</p>
+
+      <a href="http://localhost:8000/accounts/logout" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-log-out"></span> Log out
+      </a>
     </div>
   </div> 
   

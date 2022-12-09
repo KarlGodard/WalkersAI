@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  #fav-header {
+    text-align: center;
+    overflow: auto;
+  }
+
+  #home-text {
+    overflow: auto;
+  }
+</style>
+
+<div id='bodybox'>
+  <div id='chatborder'>
+    <h1 id="fav-header">Your Sketchy Collection</h1>
+
+    <h3>Here are your favorite paintings:</h3>
+      
+    {% if favorites %}
+      {% for fav in favorites %}
+        <p>{{ fav }}</p>
+      {% endfor %}
+    {% else %}
+      <p><b>You're not currently logged in.</b> Login or create an account to paintings to your collection!</p>
+    {% endif %}
+  </div>
+</div> 
+  
+{% endblock %}

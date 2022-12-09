@@ -2,7 +2,7 @@
 {% block content %}
 
 <!-- On load, sends welcome message to user --> 
-<body onload="welcomeMessage()">
+<body onload="resetWalkers()">
 
   <!-- Plain old HTML and jinja2 nav bar goes here
   <div>
@@ -77,6 +77,21 @@ if (document.getElementById("chatbox").value != "") {
 }
 }
 
+const resetWalkers = async () => {
+  try {
+    let result = await fetch('http://localhost:8000/js/walker_yield_clear', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+        'Authorization': 'token 10adc052d60972b2e6f1b8966407ab0e1cc42a2d1b3a9820b00382c29148bd28'
+    },
+    })
+
+    result = await result.json();
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const chatbotResponse = async (lastUserMessage) => {
     input = lastUserMessage;
@@ -120,6 +135,9 @@ try {
         console.log(botMessage)
     } else if (answer.node == "collection_response") {
       //add answer['nlg'] to favorites collection
+      data = {"new_favorite": answer.data};
+      favorites = await addToFavorites(data);
+      botMessage = favorites.message;
     } else {
       botMessage = answer.nlg;
     }
@@ -137,9 +155,19 @@ try {
 }
 } 
 
+const addToFavorites = async (data) => {
+  url = "/chat/";
+  
 
-function parseMapsResults(maps_results) {
-  botMessage = maps_results
+  let response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  return response.json();
 }
 
 const queryMapsAPI = async () => {
@@ -170,17 +198,7 @@ const queryMapsAPI = async () => {
   }
 
 
-  
 
-  
-  // console.log(fetchPromise);
-
-  // fetchPromise.then(response => {
-    
-  //   return response;
-  // });
-  //const maps_response = await fetch(url);
-  //const maps_data = await maps_response.json();
 }
 
 
@@ -225,16 +243,12 @@ if ('speechSynthesis' in window && talking) {
 
       <button onclick="queryMapsAPI()" type="button">Click Me!</button>
 
+      {% if message %}
+          <p>Painting favorited!</p>
+      {% endif %}
+
    </div> 
 
-  <!--
-  <div id="reactEntry">
-    Loading ...
-  </div>
-  Load JavaScript
-  <script type="text/javascript"
-    src="{{ url_for('static', filename='js/bundle.js') }}"></script>
-  -->
 </body>
 
 

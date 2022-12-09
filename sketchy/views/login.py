@@ -4,6 +4,7 @@ import sketchy
 import pymongo
 import bcrypt
 import certifi
+import random
 
 
 # Logout page
@@ -65,7 +66,7 @@ def create_account():
         password = flask.request.form.get("password")
 
         # These three lines should be temporary; will find global way to connect to database
-        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test")
+        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test", tlsCAFile=certifi.where())
         db = client.sketchy
         records = db.users
         
@@ -75,7 +76,7 @@ def create_account():
             return flask.render_template('create.html', message=message)
         else:
             hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'username': user, 'password': hashed}
+            user_input = {'username': user, 'password': hashed, 'favorites':[]}
             records.insert_one(user_input)
    
             return flask.render_template('user.html', username=user)
@@ -85,7 +86,19 @@ def create_account():
 @sketchy.app.route('/user/')
 def logged_in():
     if "username" in flask.session:
+        # These three lines should be temporary; will find global way to connect to database
+        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test", tlsCAFile=certifi.where())
+        db = client.sketchy
+        records = db.users
+
         username = flask.session["username"]
-        return flask.render_template('user.html', username=username)
+        user_found = records.find_one({"username": username})
+
+        print(user_found["favorites"])
+        if len(user_found["favorites"]) > 0:
+            random_painting = random.choice(user_found["favorites"])
+            return flask.render_template('user.html', username=username, fav=random_painting)
+        else:
+            return flask.render_template('user.html', username=username, fav=None)
     else:
         return flask.redirect(flask.url_for("login"))

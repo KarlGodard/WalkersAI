@@ -7,7 +7,19 @@ import bcrypt
 # Adds Favorites page to website
 @sketchy.app.route('/favorites/')
 def favorites():
-    return flask.render_template("favorites.html")
+    if "username" in flask.session:
+        # These three lines should be temporary; will find global way to connect to database
+        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test")
+        db = client.sketchy
+        records = db.users
+
+        username = flask.session["username"]
+        user_found = records.find_one({"username": username})
+
+        favorites = user_found["favorites"]
+        return flask.render_template("favorites.html", favorites=favorites)
+    else: # User is not logged in; don't return favorites list
+        return flask.render_template("favorites.html")
 
 # Adds Chat page to website
 # If POST request, adds the request painting to the user favorites

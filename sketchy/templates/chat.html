@@ -149,6 +149,12 @@ try {
 
       messages.push("<b>" + botName + ":</b> " + botMessage);
       
+    } else if (answer.node == "trivia_response") {
+      data = {"score": answer.score}
+      updateHighScore(data);
+      botMessage = answer.nlg;
+      messages.push("<b>" + botName + ":</b> " + botMessage);
+
     } else {
       botMessage = answer.nlg;
       messages.push("<b>" + botName + ":</b> " + botMessage);
@@ -166,6 +172,19 @@ try {
     console.log(error)
 }
 } 
+
+const updateHighScore = async (data) => {
+  url = "";
+  let response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  return response.json();
+}
 
 const addToFavorites = async (data) => {
   url = "/chat/";

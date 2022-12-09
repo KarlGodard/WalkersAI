@@ -24,18 +24,22 @@ def logout():
 # If GET request, user is just accessing page
 @sketchy.app.route("/accounts/login/", methods=['post', 'get'])
 def login():
+    # These three lines should be temporary; will find global way to connect to database
+    client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test", tlsCAFile=certifi.where())
+    db = client.sketchy
+    records = db.users
+
     message = ''
     if "username" in flask.session:
-        return flask.render_template('user.html')
+        username = flask.session["username"]
+        user_found = records.find_one({"username": username})
+        fav = random.choice(user_found["favorites"])
+        trivia_best = user_found["trivia_best"]
+        return flask.render_template('user.html', username=username, fav=fav, trivia_best=trivia_best)
     if flask.request.method == "POST":
         user = flask.request.form.get("username")
         
         password = flask.request.form.get("password")
-
-        # These three lines should be temporary; will find global way to connect to database
-        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test", tlsCAFile=certifi.where())
-        db = client.sketchy
-        records = db.users
         
         user_found = records.find_one({"username": user})
         if user_found:
@@ -76,7 +80,7 @@ def create_account():
             return flask.render_template('create.html', message=message)
         else:
             hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'username': user, 'password': hashed, 'favorites':[]}
+            user_input = {'username': user, 'password': hashed, 'favorites':[], 'trivia_best': 0}
             records.insert_one(user_input)
    
             return flask.render_template('user.html', username=user)
@@ -93,12 +97,12 @@ def logged_in():
 
         username = flask.session["username"]
         user_found = records.find_one({"username": username})
+        trivia_best = user_found["trivia_best"]
 
-        print(user_found["favorites"])
         if len(user_found["favorites"]) > 0:
             random_painting = random.choice(user_found["favorites"])
-            return flask.render_template('user.html', username=username, fav=random_painting)
+            return flask.render_template('user.html', username=username, fav=random_painting, trivia_best=trivia_best)
         else:
-            return flask.render_template('user.html', username=username, fav=None)
+            return flask.render_template('user.html', username=username, fav=None, trivia_best=trivia_best)
     else:
         return flask.redirect(flask.url_for("login"))

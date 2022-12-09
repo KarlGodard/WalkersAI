@@ -156,6 +156,11 @@
         </div>
       </label> -->
       <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Type here to talk to me." onfocus="placeHolder()">
+
+      {% if message %}
+          <p>Painting favorited!</p>
+      {% endif %}
+
     </div>
   </div> 
 

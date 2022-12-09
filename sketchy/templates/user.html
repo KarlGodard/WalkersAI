@@ -18,7 +18,11 @@
 
       <p id="user-text">Your best record in Trivia is <b>0 points</b>.</p>
 
-      <p id="user-text"><b>It looks like you don't have any Favorite Paintings yet.</b> You can favorite any painting you see to look at it later!</p>
+      {% if fav %}
+        <p id="user-text">One of your favorite paintings is <b>{{ fav }}</b>. You can see all your favorited painting by going to the Favorites tab!</p>
+      {% else %}
+        <p id="user-text"><b>It looks like you don't have any Favorite Paintings yet.</b> You can favorite any painting you see to look at it later!</p>
+      {% endif %}
 
       <a href="http://localhost:8000/accounts/logout" class="btn btn-info btn-lg">
         <span class="glyphicon glyphicon-log-out"></span> Log out

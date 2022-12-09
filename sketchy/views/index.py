@@ -58,7 +58,7 @@ def webhook():
         specific_artist = query_result.get('parameters')['name']
         specific_artwork = query_result.get('parameters')['name']
         content = content = wikipedia.page(query_result.get('parameters')['name']).content
-        fulfillmentText = wikipedia.summary(query_result.get('parameters')['name'], sentences=4)
+        fulfillmentText = wikipedia.summary(query_result.get('parameters')['name'], sentences=3)
         reply = {
             "fulfillmentText": fulfillmentText,
             "source": "webhookdata"

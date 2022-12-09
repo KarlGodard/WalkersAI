@@ -131,17 +131,29 @@ try {
         //   }
         museums = await queryMapsAPI();
         
-        botMessage = museums;
-        console.log(botMessage)
+    
+
+        messages.push("<b>" + botName + ":</b> " + "Here's what I found");
+        messages.push("1. " + museums[0]);
+        messages.push("2. " + museums[1]);
+        messages.push("3. " + museums[2]);
+        messages.push("4. " + museums[3]);
+        messages.push("5. " + museums[4]);
+        messages.push("<b>" + botName + ":</b> " + "How else can I help you?");
+
     } else if (answer.node == "collection_response") {
       //add answer['nlg'] to favorites collection
       data = {"new_favorite": answer.data};
       favorites = await addToFavorites(data);
       botMessage = favorites.message;
+
+      messages.push("<b>" + botName + ":</b> " + botMessage);
+      
     } else {
       botMessage = answer.nlg;
+      messages.push("<b>" + botName + ":</b> " + botMessage);
     }
-    messages.push("<b>" + botName + ":</b> " + botMessage);
+    
     // says the message using the text to speech function written below
     //Speech(botMessage);
     //outputs the last few array elements of messages to html
@@ -184,11 +196,12 @@ const queryMapsAPI = async () => {
     console.log(json)
     results = json.results
     console.log(results)
-    museums = "";
-    for (let i = 0; i < results.length; i++) {
+    const museums = [];
+    num_museums = 5
+    for (let i = 0; i < num_museums; i++) {
       new_museum = results[i].name;
-      museums = museums.concat("\n", new_museum);
-      //museums.push(results[i].name)
+      //museums = museums.concat("\n", new_museum);
+      museums.push(new_museum)
     } 
     return museums;
 
@@ -237,7 +250,7 @@ if ('speechSynthesis' in window && talking) {
         <p id="chatlog4" class="chatlog">&nbsp;</p>
         <p id="chatlog3" class="chatlog">&nbsp;</p>
         <p id="chatlog2" class="chatlog">&nbsp;</p>
-        <p id="chatlog1" class="chatlog"><b>Sketchy:</b> Hello, how can I help you?</p>
+        <p id="chatlog1" class="chatlog"><b>Sketchy:</b> Hello! how can I help you?</p>
         <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
       </div>
 

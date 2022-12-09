@@ -5,13 +5,13 @@ node bi_enc {
         train_data = file.load_json(visitor.train_file);
         bi_enc.train(
             dataset=train_data,
-            from_scratch=visitor.train_from_scratch,
+            from_scratch=visitor.from_scratch,
             training_parameters={
                 "num_train_epochs": visitor.num_train_epochs
             }
         );
-        if (visitor.model_name):
-            bi_enc.save_model(model_path=visitor.model_name);
+        // if (visitor.model_name):
+        //     bi_enc.save_model(model_path=visitor.model_name);
     }
 
     can infer {
@@ -28,7 +28,8 @@ node bi_enc {
 
 walker train {
     has train_file;
-    has num_train_epochs = 50, from_scratch = true;
+    has num_train_epochs = 50;
+    has from_scratch = true;
     root {
         spawn here --> node::bi_enc;
         take --> node::bi_enc;

@@ -102,10 +102,10 @@ try {
     const answer = result.report[0];
     console.log(answer)
 
-    botMessage = answer;
+    
     
 
-    if (answer == "Museums") {
+    if (answer.node == "nearby_museums") {
         console.log("Made it in the Museum conditional!")
 
         // if (navigator.geolocation) {
@@ -118,6 +118,10 @@ try {
         
         botMessage = museums;
         console.log(botMessage)
+    } else if (answer.node == "collection_response") {
+      //add answer['nlg'] to favorites collection
+    } else {
+      botMessage = answer.nlg;
     }
     messages.push("<b>" + botName + ":</b> " + botMessage);
     // says the message using the text to speech function written below
@@ -146,18 +150,29 @@ const queryMapsAPI = async () => {
     method: 'GET'
   });
 
-  //console.log(response_json)
-  //response_dict = JSON.parse(response_json);
-  console.log(response.json())
-  results = JSON.parse(response.json())
-
-  const museums = "";
-  for (let i = 0; i < results.length; i++) {
+  
+  if (response.ok) {
+    let json = await response.json();
+    console.log(json)
+    results = json.results
+    console.log(results)
+    museums = "";
+    for (let i = 0; i < results.length; i++) {
       new_museum = results[i].name;
       museums = museums.concat("\n", new_museum);
       //museums.push(results[i].name)
+    } 
+    return museums;
+
+  } else {
+    console.log("HTTP-Error: " + response.status);
+    return "";
   }
-  return museums;
+
+
+  
+
+  
   // console.log(fetchPromise);
 
   // fetchPromise.then(response => {

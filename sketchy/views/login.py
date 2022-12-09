@@ -3,6 +3,7 @@ import flask
 import sketchy
 import pymongo
 import bcrypt
+import certifi
 
 
 # Logout page
@@ -31,11 +32,11 @@ def login():
         password = flask.request.form.get("password")
 
         # These three lines should be temporary; will find global way to connect to database
-        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test")
+        client = pymongo.MongoClient("mongodb+srv://clilian:ThisIsSketchy@sketchy-db.qgiklcy.mongodb.net/test", tlsCAFile=certifi.where())
         db = client.sketchy
         records = db.users
         
-        user_found = sketchy.records.find_one({"username": user})
+        user_found = records.find_one({"username": user})
         if user_found:
             user_val = user_found["username"]
             passwordcheck = user_found["password"]

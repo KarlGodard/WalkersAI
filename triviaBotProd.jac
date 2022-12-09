@@ -27,9 +27,11 @@ node trivia_response:parent_node {
     can check_answer {
         if (visitor.response == visitor.answer) {
             output = ("Correct!\nWould you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
+            visitor.trivia_score += 1;
         } else {
             //output = ("Incorrect!\nWould you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
             output = ("Sorry, the correct answer was: " + visitor.answer + "\nWould you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
+            visitor.trivia_score = 0;
         }
     }
 
@@ -57,16 +59,19 @@ graph dialogue_system {
     has anchor dialogue_root;
     spawn {
         dialogue_root = spawn node::dialogue_root;
-        //trivia_node = spawn node::trivia_node;
+
         trivia_prompt = spawn node::trivia_prompt;
         trivia_response = spawn node::trivia_response;
         nearby_museums = spawn node::nearby_museums;
         dialogue_flow = spawn node::dialogue_flow;
         trivia_decision = spawn node::trivia_decision;
         update_history = spawn node::update_history;
+        collection_prompt = spawn node::collection_prompt;
+        collection_response = spawn node::collection_response;
+        collection_decision = spawn node::collection_decision;
 
-        //dialogue_root -[intent_transition(intent="trivia")]-> trivia_prompt;
-        //dialogue_root -[intent_transition(intent="nearby museums")]-> nearby_museums;
+        // dialogue_root -[intent_transition(intent="trivia")]-> trivia_prompt;
+        // dialogue_root -[intent_transition(intent="nearby museums")]-> nearby_museums;
 
         dialogue_root --> trivia_prompt;
         dialogue_root --> nearby_museums;
@@ -102,10 +107,12 @@ walker init {
 
 
 walker bot {
+    
     has question;
     has response;
     has answer;
     has wlk_ctx = {};
+    has trivia_score = 0;
     
     //can bi_end.infer;
     root {
@@ -120,18 +127,23 @@ walker bot {
 
         if (response == "") {
             starter_dialogue = "Hello! How can I help you today?";
-            yield report starter_dialogue;
+            yield report {"node":"dialogue_root", "nlg":starter_dialogue};
         } else {
 
         }
         
 
         if (response == "Trivia") {
+            std.out("Goint to trivia!");
             take --> node::trivia_prompt;
         } elif (response == "Nearby Museums") {
+            std.out("Goint to museums!");
             take --> node::nearby_museums;
+        } elif (response == "Favorites") {
+            std.out("Goint to favorites!");
+            take --> node::collection_prompt;
         } else {
-            
+            std.out("Error choosing direction");
         }
 
         //take --> node::trivia_prompt;
@@ -150,14 +162,14 @@ walker bot {
         std.out("At trivia prompt");
         here::select_trivia;
         answer = here.answer;
-        yield report here.prompt;
+        yield report {"node":"trivia_prompt", "nlg":here.prompt};
         take --> node::trivia_response;
     }
 
     trivia_response {
         std.out("At trivia response");
         here::check_answer;
-        yield report here.output;
+        yield report {"node":"trivia_response", "nlg":here.output, "score":trivia_score};
         take --> node::trivia_decision;
     }  
 
@@ -178,7 +190,7 @@ walker bot {
     
     nearby_museums {
         std.out("At trivia decision");
-        output = "Museums";
+        output = {"node":"nearby_museums", "nlg":""};
         yield report output;
 
         response = "";
@@ -187,7 +199,7 @@ walker bot {
     }
 
     dialogue_flow {
-        output = "MOMA";
+        output = {"node": "dialogue_flow", "nlg":""};
 
         yield report output;
 
@@ -195,7 +207,7 @@ walker bot {
     }
 
     collection_prompt {
-        output = "What would you like to add to your personal collection?";
+        output = {"node": "collection_prompt", "nlg":"What would you like to add to your personal collection?"};
 
         yield report output;
 
@@ -203,7 +215,7 @@ walker bot {
     }
 
     collection_response {
-        output = {"type": "collection", "data": response};
+        output = {"node": "collection_response", "data": response};
         yield report output;
 
         take --> node::collection_decision;

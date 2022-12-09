@@ -22,7 +22,7 @@
   -->
   <!--<script type="text/javascript" src="/sketchy/js/index.jsx"></script>-->
   <script>
-    var messages = ["Hello, how can I help you?"], //array that hold the record of each string in chat
+    var messages = ["<b>Sketchy:</b> Hello, how can I help you?"], //array that hold the record of each string in chat
 lastUserMessage = "", //keeps track of the most recent input string from the user
 botMessage = "", //var keeps track of what the chatbot is going to say
 botName = 'Sketchy', //name of the chatbot
@@ -56,6 +56,26 @@ document.onkeypress = keyPress;
       }
 
 
+      function newEntry() {
+//if the message from the user isn't empty then run
+console.log("Hello");
+if (document.getElementById("chatbox").value != "") {
+    //pulls the value from the chatbox ands sets it to lastUserMessage
+    lastUserMessage = document.getElementById("chatbox").value;
+    //sets the chat box to be clear
+    document.getElementById("chatbox").value = "";
+    //adds the value of the chatbox to the array messages
+    messages.push(lastUserMessage);
+    //Speech(lastUserMessage);  //says what the user typed outloud
+    //sets the variable botMessage in response to lastUserMessage
+    chatbotResponse(lastUserMessage);
+
+    console.log(botMessage)
+    //Speech(botMessage);
+    //add the chatbot's name and message to the array messages
+    
+}
+}
 
 
 const chatbotResponse = async (lastUserMessage) => {
@@ -85,17 +105,20 @@ try {
     botMessage = answer;
     
 
-    // if (answer == "Museums") {
-    //     console.log("Made it in the Museum conditional!")
+    if (answer == "Museums") {
+        console.log("Made it in the Museum conditional!")
 
-    //     // if (navigator.geolocation) {
-    //     //     console.log("Made it into geolocation!")
-    //     //     navigator.geolocation.getCurrentPosition(queryMapsAPI);
-    //     //   } else {
-    //     //     botMesssage = "Geolocation is not supported by this browser.";
-    //     //   }
-    //     queryMapsAPI()
-    // }
+        // if (navigator.geolocation) {
+        //     console.log("Made it into geolocation!")
+        //     navigator.geolocation.getCurrentPosition(queryMapsAPI);
+        //   } else {
+        //     botMesssage = "Geolocation is not supported by this browser.";
+        //   }
+        museums = await queryMapsAPI();
+        
+        botMessage = museums;
+        console.log(botMessage)
+    }
     messages.push("<b>" + botName + ":</b> " + botMessage);
     // says the message using the text to speech function written below
     //Speech(botMessage);
@@ -111,27 +134,38 @@ try {
 } 
 
 
-
-
-
-function httpGet(url)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", url, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-
 function parseMapsResults(maps_results) {
   botMessage = maps_results
 }
 
-function queryMapsAPI() {
+const queryMapsAPI = async () => {
   latitude = 42.279545
   longitude = -83.741063
-  url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/" + "json?" + latitude + "," + longitude + "&radius=1500&type=museum&key=AIzaSyCAT9OGOYQL6zPlTgc73N_MB1fDC-sXFks");
-  maps_response = httpGet(url);
+  url = "/nearbyMuseums/";
+  let response = await fetch(url, {
+    method: 'GET'
+  });
 
+  //console.log(response_json)
+  //response_dict = JSON.parse(response_json);
+  console.log(response.json())
+  results = JSON.parse(response.json())
+
+  const museums = "";
+  for (let i = 0; i < results.length; i++) {
+      new_museum = results[i].name;
+      museums = museums.concat("\n", new_museum);
+      //museums.push(results[i].name)
+  }
+  return museums;
+  // console.log(fetchPromise);
+
+  // fetchPromise.then(response => {
+    
+  //   return response;
+  // });
+  //const maps_response = await fetch(url);
+  //const maps_data = await maps_response.json();
 }
 
 
@@ -154,8 +188,8 @@ if ('speechSynthesis' in window && talking) {
   </script> 
 
   <div>
-    <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
-    <div class="title">Sketchy</div>
+    <!-- <div class="brush"><img src="/static/images/RobotClipArt.png" alt="Insta485" style="width: 100px;height: 100px;"></div>
+    <div class="title">Sketchy</div> -->
     
     <br><br>
     <!-- <iframe allow="microphone;" width="350" height="430"
@@ -170,9 +204,12 @@ if ('speechSynthesis' in window && talking) {
         <p id="chatlog4" class="chatlog">&nbsp;</p>
         <p id="chatlog3" class="chatlog">&nbsp;</p>
         <p id="chatlog2" class="chatlog">&nbsp;</p>
-        <p id="chatlog1" class="chatlog">Hello, how can I help you</p>
+        <p id="chatlog1" class="chatlog"><b>Sketchy:</b> Hello, how can I help you?</p>
         <input type="text" name="chat" id="chatbox" onkeydown="keyPress(event)" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
       </div>
+
+      <button onclick="queryMapsAPI()" type="button">Click Me!</button>
+
    </div> 
 
   <!--

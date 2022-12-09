@@ -8,6 +8,8 @@ URLs include:
 import flask
 import sketchy
 from serpapi import GoogleSearch
+import requests
+import json
 
 serpapi_key = "24f09a125c045af29485bcb5e2c2bcea6aa4ce1bb8a5590407438d9fdcf8789e"
 
@@ -281,3 +283,22 @@ def history():
 @sketchy.app.route('/about/')
 def about():
     return flask.render_template("about.html")
+
+@sketchy.app.route("/nearbyMuseums/", methods=["GET"])
+def nearbyMuseums():
+   
+    payload={}
+    headers = {}
+
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=42.279545,-83.741063&radius=1500&type=museum&key=AIzaSyCAT9OGOYQL6zPlTgc73N_MB1fDC-sXFks"
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(type(response))
+    print(type(response.json()))
+    print(response.json())
+    #results = json.loads(response.text)['results']
+
+    # for result in results:
+    #    print(result['name'])
+
+    return response.json()

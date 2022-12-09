@@ -34,15 +34,17 @@ node trivia_response:parent_node {
     }
 
 }
-node trivia_decision {}
-node nearby_museums:parent_node {
-    
+node trivia_decision:parent_node {}
 
-}
+node nearby_museums:parent_node {}
 
-node dialogue_flow:parent_node {
+node dialogue_flow:parent_node {}
 
-}
+node collection_prompt:parent_node {}
+
+node collection_response:parent_node {}
+
+node collection_decision:parent_node {}
 
 edge intent_transition {
     has intent;
@@ -61,6 +63,7 @@ graph dialogue_system {
         nearby_museums = spawn node::nearby_museums;
         dialogue_flow = spawn node::dialogue_flow;
         trivia_decision = spawn node::trivia_decision;
+        update_history = spawn node::update_history;
 
         //dialogue_root -[intent_transition(intent="trivia")]-> trivia_prompt;
         //dialogue_root -[intent_transition(intent="nearby museums")]-> nearby_museums;
@@ -68,16 +71,24 @@ graph dialogue_system {
         dialogue_root --> trivia_prompt;
         dialogue_root --> nearby_museums;
         dialogue_root --> dialogue_flow;
+        dialogue_root --> collection_prompt;
+
+        trivia_prompt --> trivia_response;
         trivia_response --> trivia_decision;
         trivia_decision --> dialogue_root;
         trivia_decision --> trivia_prompt;
 
-
-        trivia_prompt --> trivia_response;
+        collection_prompt --> collection_response;
+        collection_response --> collection_decision;
+        collection_decision --> dialogue_root;
+        collection_decision --> collection_prompt;
+        
         nearby_museums --> dialogue_root;
-        trivia_response --> trivia_prompt;
-        trivia_response --> dialogue_root;
+        
+        
         dialogue_flow --> dialogue_root;
+
+
     }
 }
 
@@ -115,15 +126,15 @@ walker bot {
         }
         
 
-        // if (response == "Trivia") {
-        //     take --> node::trivia_prompt;
-        // } elif (response == "Nearby Museums") {
-        //     take --> node::nearby_museums;
-        // } else {
+        if (response == "Trivia") {
+            take --> node::trivia_prompt;
+        } elif (response == "Nearby Museums") {
+            take --> node::nearby_museums;
+        } else {
             
-        // }
+        }
 
-        take --> node::trivia_prompt;
+        //take --> node::trivia_prompt;
 
         // intent_labels = -[intent_transition]->.edge.intent;
         // predicted_intent = bi_enc.infer(
@@ -162,23 +173,54 @@ walker bot {
             take --> node::dialogue_root;
         }
     }
+    
+
+    
+    nearby_museums {
+        std.out("At trivia decision");
+        output = "Museums";
+        yield report output;
+
+        response = "";
+
+        take --> node::dialogue_root;
     }
 
-    
-    // nearby_museums {
-    //     output = "Museums";
-    //     yield report output;
+    dialogue_flow {
+        output = "MOMA";
 
-    //     take --> node::dialogue_root;
-    // }
+        yield report output;
 
-    // dialogue_flow {
-    //     output = "MOMA";
+        take --> node::dialogue_root;
+    }
 
-    //     yield report output;
+    collection_prompt {
+        output = "What would you like to add to your personal collection?";
 
-    //     take --> node::dialogue_root;
-    // }
-    
+        yield report output;
+
+        take --> node::collection_response;
+    }
+
+    collection_response {
+        output = {"type": "collection", "data": response};
+        yield report output;
+
+        take --> node::collection_decision;
+
+    }
+
+    collection_decision {
+        if response == "Add more to collection" {
+            std.out("Going to collection probmpt!");
+            take --> node::collection_prompt;
+        } 
+        else {
+            std.out("Going to dialogue root");
+            response = "";
+            take --> node::dialogue_root;
+        }
+    }
+}
 
 

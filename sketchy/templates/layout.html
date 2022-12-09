@@ -216,15 +216,15 @@ ul li a .name span{
   <!-- Navigation bar with icons -->
   <ul>
     <li id="icon-bar">
-      <a href="http://localhost:8000/home">
+      <a href="{{ url_for('home')}}">
         <div class="icon">
           <i class="fa fa-home" aria-hidden="true"></i>
         </div>
-        <div class="name"><span data-text="Home">Home</span></div>
+        <div class="name"><span data-texst="Home">Home</span></div>
       </a>
     </li>
     <li id="icon-bar">
-      <a href="http://localhost:8000/">
+      <a href="{{ url_for('show_index')}}">
         <div class="icon">
           <i class="fa fa-comments"></i>
         </div>
@@ -232,7 +232,7 @@ ul li a .name span{
       </a>
     </li>
     <li id="icon-bar">
-      <a href="http://localhost:8000/search">
+      <a href="{{ url_for('search')}}">
         <div class="icon">
           <i class="fa fa-search"></i>
         </div>
@@ -240,7 +240,7 @@ ul li a .name span{
       </a>
     </li>
     <li id="icon-bar">
-      <a href="http://localhost:8000/history">
+      <a href="{{ url_for('history')}}">
         <div class="icon">
           <i class="fa fa-history" aria-hidden="true"></i>
         </div>
@@ -248,7 +248,7 @@ ul li a .name span{
       </a>
     </li>
     <li id="icon-bar">
-      <a href="http://localhost:8000/user">
+      <a href="{{ url_for('show_user', user_url_slug='')}}">
         <div class="icon">
           <i class="fa fa-user" aria-hidden="true"></i>
         </div>

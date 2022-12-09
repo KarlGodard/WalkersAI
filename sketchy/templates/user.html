@@ -16,7 +16,7 @@
     <div id='chatborder'>
       <h2 id="user-header">Welcome back, {{ username }}! </h2>
 
-      <p id="user-text">Your best record in Trivia is <b>0 points</b>.</p>
+      <p id="user-text">Your best record in Trivia is <b>{{ trivia_best }} points</b>.</p>
 
       {% if fav %}
         <p id="user-text">One of your favorite paintings is <b>{{ fav }}</b>. You can see all your favorited painting by going to the Favorites tab!</p>

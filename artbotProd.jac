@@ -30,7 +30,7 @@ node trivia_response:parent_node {
             visitor.trivia_score += 1;
         } else {
             //output = ("Incorrect!\nWould you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
-            output = ("Sorry, the correct answer was: " + visitor.answer + "\nWould you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
+            output = ("Sorry, the correct answer was: " + visitor.answer + ".\n Would you like another trivia question, or can I help you with something else?\n(Please input 'More trivia or Quit')");
             visitor.trivia_score = 0;
         }
     }
@@ -133,13 +133,13 @@ walker bot {
         }
         
 
-        if (response == "Trivia") {
-            std.out("Goint to trivia!");
+        if (response == "Play trivia") {
+            std.out("Going to trivia!");
             take --> node::trivia_prompt;
-        } elif (response == "Nearby Museums") {
+        } elif (response == "Search nearby museums") {
             std.out("Goint to museums!");
             take --> node::nearby_museums;
-        } elif (response == "Favorites") {
+        } elif (response == "Add to favorites") {
             std.out("Goint to favorites!");
             take --> node::collection_prompt;
         } else {

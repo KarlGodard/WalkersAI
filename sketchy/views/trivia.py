@@ -9,6 +9,7 @@ import flask
 import sketchy
 import pymongo
 import json
+import certifi
 
 
 # Adds Chat page to website
@@ -29,15 +30,20 @@ def trivia_score():
 
         print(new_score)
 
-        if new_score > old_score:
+        if int(new_score) > int(old_score):
             user_found = records.find_one_and_update(
                 { "username": username},
-                {'$push': {"trivia_best": new_score}}
+                {'$set': {"trivia_best": new_score}}
 
                 )
             message = "New high score!"
             status = {'message': message}
             return json.dumps(status)
+        else:
+            message = "No new high score."
+            status = {'message': message}
+            return json.dumps(status)
+
 
     else:
         message = "Please sign in to track your score!"
